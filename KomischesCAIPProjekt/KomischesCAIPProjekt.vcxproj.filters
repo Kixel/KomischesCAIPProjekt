@@ -31,6 +31,9 @@
     <ClCompile Include="KomischesCAIPProjekt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KPImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h">
@@ -46,5 +49,10 @@
     <QtRcc Include="KomischesCAIPProjekt.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KPImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
