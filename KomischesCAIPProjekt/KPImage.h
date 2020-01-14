@@ -8,15 +8,9 @@ using namespace std;
 class KPImage : public cv::Mat {
 	
 private:
-	
-
 
 public:
-	
-	
 	QImage getQ();
 	
-
-
 };
 
