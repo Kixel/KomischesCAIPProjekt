@@ -34,14 +34,23 @@
     <ClCompile Include="KPImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KPImageSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="KPImageSelector.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPImageSelector.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
     <ClCompile Include="KPImage.cpp" />
+    <ClCompile Include="KPImageSelector.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -100,12 +101,14 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui" />
+    <QtUic Include="KPImageSelector.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="KomischesCAIPProjekt.qrc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KPImage.h" />
+    <QtMoc Include="KPImageSelector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
