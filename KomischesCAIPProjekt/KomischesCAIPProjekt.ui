@@ -45,11 +45,21 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuGenerate_TestImage">
+     <property name="title">
+      <string>Generate TestImage</string>
+     </property>
+     <addaction name="actionGray_Gradient_fast"/>
+     <addaction name="actionGray_Gradient_slow"/>
+     <addaction name="actionColor_Noise"/>
+     <addaction name="actionGray_Noise"/>
+     <addaction name="actionColor_Perlin"/>
+     <addaction name="actionGray_Perlin"/>
+    </widget>
     <addaction name="actionOpen"/>
     <addaction name="actionSave_Active"/>
     <addaction name="separator"/>
-    <addaction name="actionTestImage"/>
-    <addaction name="actionTestImage_shit"/>
+    <addaction name="menuGenerate_TestImage"/>
     <addaction name="separator"/>
     <addaction name="actionClose_All_Images"/>
     <addaction name="actionQuit"/>
@@ -62,32 +72,17 @@
      <property name="title">
       <string>Filter</string>
      </property>
-     <widget class="QMenu" name="menuGauss">
-      <property name="title">
-       <string>Gauss</string>
-      </property>
-      <addaction name="actionSigma"/>
-      <addaction name="action0_1"/>
-      <addaction name="action0_5"/>
-      <addaction name="action1"/>
-      <addaction name="action5"/>
-     </widget>
      <addaction name="actionMean"/>
      <addaction name="actionMedian"/>
-     <addaction name="menuGauss"/>
+     <addaction name="actionGauss"/>
      <addaction name="actionEdge"/>
      <addaction name="actionRandom"/>
-     <addaction name="separator"/>
-     <addaction name="actionSize"/>
-     <addaction name="action3x3"/>
-     <addaction name="action5x5"/>
-     <addaction name="action9x9"/>
      <addaction name="actionCustom"/>
     </widget>
     <addaction name="actionInvert"/>
     <addaction name="actionShow_Histogram"/>
     <addaction name="menuFilter"/>
-    <addaction name="actionShrink"/>
+    <addaction name="actionResize"/>
    </widget>
    <widget class="QMenu" name="menuExtras">
     <property name="title">
@@ -253,9 +248,44 @@
     <string>5</string>
    </property>
   </action>
-  <action name="actionShrink">
+  <action name="actionResize">
    <property name="text">
-    <string>Shrink/Expand</string>
+    <string>Resize</string>
+   </property>
+  </action>
+  <action name="actionGauss">
+   <property name="text">
+    <string>Gauss</string>
+   </property>
+  </action>
+  <action name="actionGray_Gradient_fast">
+   <property name="text">
+    <string>Gray-Gradient (fast)</string>
+   </property>
+  </action>
+  <action name="actionGray_Gradient_slow">
+   <property name="text">
+    <string>Gray-Gradient (slow)</string>
+   </property>
+  </action>
+  <action name="actionColor_Noise">
+   <property name="text">
+    <string>Color-Noise</string>
+   </property>
+  </action>
+  <action name="actionGray_Noise">
+   <property name="text">
+    <string>Gray-Noise</string>
+   </property>
+  </action>
+  <action name="actionColor_Perlin">
+   <property name="text">
+    <string>Color-Perlin</string>
+   </property>
+  </action>
+  <action name="actionGray_Perlin">
+   <property name="text">
+    <string>Gray-Perlin</string>
    </property>
   </action>
  </widget>

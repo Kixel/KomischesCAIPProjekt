@@ -1,6 +1,13 @@
 #include "KPImage.h"
 
-QImage KPImage::getQ() {
-	QImage imgIn = QImage((uchar*)this->data, this->cols, this->rows, this->step, QImage::Format_RGB888);
-	return imgIn;
+const QImage KPImage::getQ() {
+
+	QImage* imgIn = new QImage((uchar*)this->data, this->cols, this->rows, this->step, QImage::Format(Tools::Type_CV2Q(this->type)));
+	return *imgIn;
+}
+
+KPImage::KPImage(string name) : Mat(imread(name))
+{
+	
+	
 }

@@ -91,10 +91,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="ImProc.cpp" />
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
     <ClCompile Include="KPImage.cpp" />
     <ClCompile Include="KPImageSelector.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h" />
@@ -107,7 +110,10 @@
     <QtRcc Include="KomischesCAIPProjekt.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="ImProc.h" />
     <ClInclude Include="KPImage.h" />
+    <ClInclude Include="Tools.h" />
     <QtMoc Include="KPImageSelector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

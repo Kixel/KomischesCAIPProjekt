@@ -2,6 +2,7 @@
 
 #include <QPushButton>
 #include "ui_KPImageSelector.h"
+#include "KPImage.h"
 
 class KPImageSelector : public QPushButton
 {
@@ -9,6 +10,7 @@ class KPImageSelector : public QPushButton
 
 public:
 	KPImageSelector(QWidget *parent = Q_NULLPTR);
+	KPImageSelector(QWidget* parent = Q_NULLPTR, KPImage* image);
 	~KPImageSelector();
 
 private:
