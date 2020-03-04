@@ -15,6 +15,11 @@ private:
 	Ui::KomischesCAIPProjektClass ui;
 	ImageManager M;
 	int activeM;
+	
+
+public slots:
+	void windowactivated(int n);
+	void selectorclicked(int n);
 
 private slots:
 	//Menu Bar
@@ -31,11 +36,14 @@ private slots:
 	void on_actionClose_All_Images_triggered();
 	void on_actionQuit_triggered();
 
+	void closeEvent(QCloseEvent* event);
+
 	//Operations Menu
 	void on_actionShow_Histogram_triggered();
 	void on_actionInvert_triggered();
 	void on_actionCrop_triggered();
 	void on_actionResize_triggered();
+	void on_actionRotate_triggered();
 	void on_actionConvert_to_Grayscale_triggered();
 	void on_actionGammacorrection_triggered();
 	void on_actionContrastcorrection_triggered();
@@ -47,6 +55,12 @@ private slots:
 		void on_actionEdge_triggered();
 		void on_actionRandom_triggered();
 		void on_actionCustom_triggered();
+		//Morphology
+		void on_actionErode_triggered();
+		void on_actionOpen2_triggered();
+		void on_actionDilate_triggered();
+		void on_actionClose_triggered();
+
 	
 	//Extras Menu
 	void on_actionMagnifier_triggered();

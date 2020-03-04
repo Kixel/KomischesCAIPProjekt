@@ -46,6 +46,12 @@
     <ClCompile Include="ImProc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KPImageViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h">
@@ -54,12 +60,18 @@
     <QtMoc Include="KPImageSelector.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="KPImageViewer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="KPImageSelector.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPImageViewer.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -79,6 +91,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImProc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

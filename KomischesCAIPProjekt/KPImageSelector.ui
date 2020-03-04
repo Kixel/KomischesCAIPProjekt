@@ -35,9 +35,21 @@
   </property>
   <property name="iconSize">
    <size>
-    <width>92</width>
-    <height>92</height>
+    <width>100</width>
+    <height>100</height>
    </size>
+  </property>
+  <property name="checkable">
+   <bool>false</bool>
+  </property>
+  <property name="autoRepeat">
+   <bool>false</bool>
+  </property>
+  <property name="autoExclusive">
+   <bool>false</bool>
+  </property>
+  <property name="flat">
+   <bool>false</bool>
   </property>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
