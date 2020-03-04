@@ -1,27 +1,29 @@
 #pragma once
 #include <vector>
 #include <opencv2/core/mat.hpp>
+#include <map>
+#include "KPImage.h"
 
 using namespace std;
 
 class ImageManager
 {
 private:
-	vector<cv::Mat> images;
-	vector<string> filenames;
+	map<int, KPImage> images;
+	int keywalker;
 
 public:
 	ImageManager();
-	void addImage(cv::Mat im, string info);
+	void addImage(KPImage im, string info);
 	void loadImage(string filename);
 
-	cv::Mat getImage(int n);
-	cv::Mat getImage(string name);
+	KPImage& getImage(int n);
+	//cv::Mat getImage(string name);
 
 	bool deleteImage(int n);
-	bool deleteImage(string name);
+	//bool deleteImage(string name);
 
-
+	bool iDExists(int n);
 
 };
 

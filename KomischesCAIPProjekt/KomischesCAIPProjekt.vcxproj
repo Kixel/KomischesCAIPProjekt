@@ -94,9 +94,10 @@
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="ImProc.cpp" />
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
+    <ClCompile Include="KPGraphicsScene.cpp" />
     <ClCompile Include="KPImage.cpp" />
     <ClCompile Include="KPImageSelector.cpp" />
-    <ClCompile Include="KPImageViewer.cpp" />
+    <ClCompile Include="KPImageView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Tools.cpp" />
@@ -107,7 +108,7 @@
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui" />
     <QtUic Include="KPImageSelector.ui" />
-    <QtUic Include="KPImageViewer.ui" />
+    <QtUic Include="KPImageView.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="KomischesCAIPProjekt.qrc" />
@@ -115,8 +116,9 @@
   <ItemGroup>
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="ImProc.h" />
+    <QtMoc Include="KPGraphicsScene.h" />
     <ClInclude Include="KPImage.h" />
-    <QtMoc Include="KPImageViewer.h" />
+    <QtMoc Include="KPImageView.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Tools.h" />
     <QtMoc Include="KPImageSelector.h" />

@@ -8,19 +8,23 @@ using namespace std;
 using namespace cv;
 
 
-class KPImage : public cv::Mat {
+class KPImage {
 	
 private:
 	string internalname;
+	Mat im;
 
 public:
-	const QImage getQ();
-	void setName(const string& n);
 	KPImage();
 	KPImage(Mat m);
 	KPImage(QImage& data);
 	KPImage(const string name);
 	KPImage(int w, int h);
+
+	QImage& getQ();
+	KPI& getM();
+	void setName(const string& n);
+	
 	bool saveToDisk(const string name);
 };
 

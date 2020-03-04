@@ -10,7 +10,7 @@ class KPImageSelector : public QPushButton
 
 public:
 	KPImageSelector(QWidget *parent = Q_NULLPTR);
-	KPImageSelector(QWidget* parent = Q_NULLPTR, KPImage* image);
+	KPImageSelector(KPImage* image, QWidget* parent = Q_NULLPTR);
 	~KPImageSelector();
 
 private:

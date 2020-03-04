@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_KomischesCAIPProjekt.h"
 #include "ImageManager.h"
+#include <iostream>
 
 class KomischesCAIPProjekt : public QMainWindow
 {
