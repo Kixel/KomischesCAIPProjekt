@@ -22,7 +22,7 @@ public:
 	KPImage(int w, int h);
 
 	QImage& getQ();
-	KPI& getM();
+	Mat& getM();
 	void setName(const string& n);
 	
 	bool saveToDisk(const string name);
