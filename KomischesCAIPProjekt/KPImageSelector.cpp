@@ -7,7 +7,7 @@ KPImageSelector::KPImageSelector(QWidget *parent)
 	this->setFixedSize(100, 100);
 }
 
-KPImageSelector::KPImageSelector(QWidget* parent, KPImage* image)
+KPImageSelector::KPImageSelector(KPImage* image, QWidget* parent)
 	: QPushButton(parent)
 {
 	ui.setupUi(this);

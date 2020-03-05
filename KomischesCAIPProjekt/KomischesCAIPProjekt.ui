@@ -16,19 +16,65 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <property name="leftMargin">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>3</number>
+     <number>5</number>
     </property>
     <property name="rightMargin">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>3</number>
+     <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QGridLayout" name="SelectionButtons"/>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+      <widget class="QWidget" name="Selections">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>581</width>
+         <height>340</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>2</number>
+        </property>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -79,10 +125,29 @@
      <addaction name="actionRandom"/>
      <addaction name="actionCustom"/>
     </widget>
-    <addaction name="actionInvert"/>
+    <widget class="QMenu" name="menuMorphology">
+     <property name="title">
+      <string>Morphology</string>
+     </property>
+     <addaction name="actionErode"/>
+     <addaction name="actionOpen_2"/>
+     <addaction name="actionDilate"/>
+     <addaction name="actionClose"/>
+    </widget>
     <addaction name="actionShow_Histogram"/>
-    <addaction name="menuFilter"/>
+    <addaction name="separator"/>
+    <addaction name="actionInvert"/>
+    <addaction name="actionCrop"/>
     <addaction name="actionResize"/>
+    <addaction name="actionRotate"/>
+    <addaction name="separator"/>
+    <addaction name="actionConvert_to_Grayscale"/>
+    <addaction name="actionGammacorrection"/>
+    <addaction name="actionContrastcorrection"/>
+    <addaction name="separator"/>
+    <addaction name="actionBinarise"/>
+    <addaction name="menuFilter"/>
+    <addaction name="menuMorphology"/>
    </widget>
    <widget class="QMenu" name="menuExtras">
     <property name="title">
@@ -106,7 +171,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>Open File</string>
    </property>
   </action>
   <action name="actionTestImage">
@@ -149,7 +214,7 @@
   </action>
   <action name="actionShow_Histogram">
    <property name="text">
-    <string>Show Histogram</string>
+    <string>Gray-Histogram</string>
    </property>
   </action>
   <action name="actionMean">
@@ -286,6 +351,56 @@
   <action name="actionGray_Perlin">
    <property name="text">
     <string>Gray-Perlin</string>
+   </property>
+  </action>
+  <action name="actionConvert_to_Grayscale">
+   <property name="text">
+    <string>Convert to Grayscale</string>
+   </property>
+  </action>
+  <action name="actionCrop">
+   <property name="text">
+    <string>Crop</string>
+   </property>
+  </action>
+  <action name="actionGammacorrection">
+   <property name="text">
+    <string>Gammacorrection</string>
+   </property>
+  </action>
+  <action name="actionContrastcorrection">
+   <property name="text">
+    <string>Contrastcorrection</string>
+   </property>
+  </action>
+  <action name="actionBinarise">
+   <property name="text">
+    <string>Binarise</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+  </action>
+  <action name="actionErode">
+   <property name="text">
+    <string>Erode</string>
+   </property>
+  </action>
+  <action name="actionDilate">
+   <property name="text">
+    <string>Dilate</string>
+   </property>
+  </action>
+  <action name="actionOpen_2">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
    </property>
   </action>
  </widget>

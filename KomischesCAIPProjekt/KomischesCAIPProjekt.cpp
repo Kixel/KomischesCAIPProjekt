@@ -5,7 +5,14 @@ KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
 	ui.setupUi(this);
 }
 
+void KomischesCAIPProjekt::windowactivated(int n) {
+}
+
 void KomischesCAIPProjekt::selectorclicked(int n) {
+}
+
+void KomischesCAIPProjekt::on_actionOpen_triggered() {
+
 }
 
 void KomischesCAIPProjekt::on_actionSave_Active_triggered() {

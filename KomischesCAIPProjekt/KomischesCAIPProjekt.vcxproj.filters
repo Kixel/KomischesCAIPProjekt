@@ -49,7 +49,10 @@
     <ClCompile Include="PerlinNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KPImageViewer.cpp">
+    <ClCompile Include="KPImageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KPGraphicsScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,7 +63,10 @@
     <QtMoc Include="KPImageSelector.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="KPImageViewer.h">
+    <QtMoc Include="KPImageView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="KPGraphicsScene.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -71,7 +77,7 @@
     <QtUic Include="KPImageSelector.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="KPImageViewer.ui">
+    <QtUic Include="KPImageView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
