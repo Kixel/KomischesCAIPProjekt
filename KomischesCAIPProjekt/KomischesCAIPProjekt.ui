@@ -55,23 +55,30 @@
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
+         <enum>QLayout::SetNoConstraint</enum>
         </property>
         <property name="leftMargin">
-         <number>0</number>
+         <number>10</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>10</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>10</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>10</number>
         </property>
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="Test">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+         </layout>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -107,6 +114,7 @@
     <addaction name="separator"/>
     <addaction name="menuGenerate_TestImage"/>
     <addaction name="separator"/>
+    <addaction name="actionClose_Active"/>
     <addaction name="actionClose_All_Images"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -401,6 +409,11 @@
   <action name="actionClose">
    <property name="text">
     <string>Close</string>
+   </property>
+  </action>
+  <action name="actionClose_Active">
+   <property name="text">
+    <string>Close Active</string>
    </property>
   </action>
  </widget>

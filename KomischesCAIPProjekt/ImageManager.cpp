@@ -4,21 +4,22 @@ ImageManager::ImageManager() : images(), keywalker(0) {
 
 }
 
-void ImageManager::addImage(KPImage im, string info) {
+void ImageManager::addImage(KPImage* im, string info) {
 	images[keywalker] = im;
-	images[keywalker].setName(info);
+	images[keywalker]->setName(info);
 
 
 	keywalker++;
 	return;
 }
 
-void ImageManager::loadImage(string filename) {
-	KPImage n = *(new KPImage(filename));
+int ImageManager::loadImage(string filename) {
+	KPImage* n = new KPImage(filename);
 	this->addImage(n, filename);
+	return this->keywalker - 1;
 }
 
-KPImage& ImageManager::getImage(int n) {
+KPImage* ImageManager::getImage(int n) {
 	if (!iDExists(n))
 		throw out_of_range("This does not exist!");
 	return images[n];

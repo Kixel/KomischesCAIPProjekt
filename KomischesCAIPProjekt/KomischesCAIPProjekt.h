@@ -4,6 +4,12 @@
 #include "ui_KomischesCAIPProjekt.h"
 #include "ImageManager.h"
 #include <iostream>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include "KPImageView.h"
+#include "KPImageSelector.h"
+#include <QSignalMapper>
+
 
 class KomischesCAIPProjekt : public QMainWindow
 {
@@ -13,13 +19,21 @@ public:
 	KomischesCAIPProjekt(QWidget *parent = Q_NULLPTR);
 
 private:
+	// Fields
 	Ui::KomischesCAIPProjektClass ui;
 	ImageManager M;
 	int activeM;
-	
+	map<int, KPImageView*> V;
+	map<int, KPImageSelector*> B;
+
+	QSignalMapper viewmapper, buttonmapper;
+
+	// private functions
+	void changeImage(int ID, KPImage* im);
+	void addImage(int ID, KPImage* im);
 
 public slots:
-	void windowactivated(int n);
+	void windowactivated(int view);
 	void selectorclicked(int n);
 
 private slots:
@@ -34,6 +48,7 @@ private slots:
 		void on_actionGray_Noise_triggered();
 		void on_actionColor_Perlin_triggered();
 		void on_actionGray_Perlin_triggered();
+	void on_actionClose_Active_triggered();
 	void on_actionClose_All_Images_triggered();
 	void on_actionQuit_triggered();
 
@@ -58,7 +73,7 @@ private slots:
 		void on_actionCustom_triggered();
 		//Morphology
 		void on_actionErode_triggered();
-		void on_actionOpen2_triggered();
+		void on_actionOpen_2_triggered();
 		void on_actionDilate_triggered();
 		void on_actionClose_triggered();
 

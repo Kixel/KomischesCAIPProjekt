@@ -7,8 +7,8 @@ KPImageSelector::KPImageSelector(QWidget *parent)
 	this->setFixedSize(100, 100);
 }
 
-KPImageSelector::KPImageSelector(KPImage* image, QWidget* parent)
-	: QPushButton(parent)
+KPImageSelector::KPImageSelector(int ID, KPImage* image, QWidget* parent)
+	: QPushButton(parent), ID(ID)
 {
 	ui.setupUi(this);
 	this->setFixedSize(100, 100);
@@ -18,4 +18,8 @@ KPImageSelector::KPImageSelector(KPImage* image, QWidget* parent)
 
 KPImageSelector::~KPImageSelector()
 {
+}
+
+int KPImageSelector::getID() {
+	return this->ID;
 }

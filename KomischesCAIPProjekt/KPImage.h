@@ -3,6 +3,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "Tools.h"
+#include <algorithm>
+#include <string>
 
 using namespace std;
 using namespace cv;
@@ -16,7 +18,7 @@ private:
 
 public:
 	KPImage();
-	KPImage(Mat m);
+	KPImage(Mat& m);
 	KPImage(QImage& data);
 	KPImage(const string name);
 	KPImage(int w, int h);

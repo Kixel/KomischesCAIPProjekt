@@ -1,7 +1,7 @@
 #include "KPImageView.h"
 
 KPImageView::KPImageView(QWidget* parent)
-	: QWidget(parent), currentImage(), kpgs() {
+	: QWidget(parent), currentImage(), kpgs(), currentImageID(-1) {
 	ui.setupUi(this);
 	ui.graphicsView->setScene(&kpgs);
 	
@@ -10,9 +10,9 @@ KPImageView::KPImageView(QWidget* parent)
 KPImageView::~KPImageView() {
 }
 
-void KPImageView::setImage(KPImage& img, const int& ID) {
+void KPImageView::setImage(KPImage* img, const int& ID) {
 	this->currentImageID = ID;
-	this->currentImage = img.getQ();
+	this->currentImage = img->getQ();
 	kpgs.clear();
 	kpgs.setSceneRect(currentImage.rect());
 	kpgs.addPixmap(QPixmap::fromImage(currentImage));
@@ -43,4 +43,12 @@ void KPImageView::resizeEvent(QResizeEvent* event) {
 }
 
 void KPImageView::updateStats() {
+	// TODO update fields in viewer
+}
+
+bool KPImageView::event(QEvent* e) {
+	if (e->type() == QEvent::WindowActivate) {
+		emit windowactivated(this->currentImageID);
+	}
+	return QWidget::event(e);
 }

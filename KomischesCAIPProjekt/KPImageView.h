@@ -13,13 +13,17 @@ public:
 	KPImageView(QWidget *parent = Q_NULLPTR);
 	~KPImageView();
 
-	void setImage(KPImage& img, const int& ID);
+	void setImage(KPImage* img, const int& ID);
 	void fit(KPImage& img, const bool current); 
 	void fitToCurrent();
 	const int getID();
 
 	//Events
 	void resizeEvent(QResizeEvent* event);
+
+signals:
+	void windowactivated(int id);
+
 private:
 	Ui::KPImageView ui;
 
@@ -30,5 +34,7 @@ private:
 	
 	//private methods
 	void updateStats();
+
+	bool event(QEvent* e);
 
 };
