@@ -4,6 +4,7 @@
 #include "ui_KPImageView.h"
 #include "KPImage.h"
 #include "KPGraphicsScene.h"
+#include <iostream>
 
 class KPImageView : public QWidget
 {
@@ -14,7 +15,7 @@ public:
 	~KPImageView();
 
 	void setImage(KPImage* img, const int& ID);
-	void fit(KPImage& img, const bool current); 
+	void fit(KPImage* img, const bool current); 
 	void fitToCurrent();
 	const int getID();
 
@@ -23,18 +24,28 @@ public:
 
 signals:
 	void windowactivated(int id);
+	void closethis(int id);
 
 private:
 	Ui::KPImageView ui;
 
 	//Fields
 	KPGraphicsScene kpgs;
-	QImage currentImage;
+	KPImage* currentImage;
 	int currentImageID;
 	
 	//private methods
 	void updateStats();
 
+	
+	
+
+	//overrides
 	bool event(QEvent* e);
+
+private slots:
+	void mouseHoverUpdater(int x, int y);
+	void on_actionDismiss_clicked();
+	void on_actionHide_clicked();
 
 };

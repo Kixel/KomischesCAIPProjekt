@@ -19,3 +19,11 @@ int Tools::Type_CV2Q(int t) {
 	}
 	return QImage::Format_ARGB32;
 }
+
+bool Tools::PathValid(string p) {
+	ifstream infi(p.c_str());
+	return infi.good();
+}
+
+string Tools::readableformats = "*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm";
+string Tools::writeableformats = "*.bmp *.jpg *.jpeg *.png *.ppm *.xbm *.xpm";

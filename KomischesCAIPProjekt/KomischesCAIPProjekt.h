@@ -9,6 +9,7 @@
 #include "KPImageView.h"
 #include "KPImageSelector.h"
 #include <QSignalMapper>
+#include "ImProc.h"
 
 
 class KomischesCAIPProjekt : public QMainWindow
@@ -31,6 +32,8 @@ private:
 	// private functions
 	void changeImage(int ID, KPImage* im);
 	void addImage(int ID, KPImage* im);
+	void removeImage(int ID);
+	void disenableItems();
 
 public slots:
 	void windowactivated(int view);
@@ -80,4 +83,8 @@ private slots:
 	
 	//Extras Menu
 	void on_actionMagnifier_triggered();
+
+
+	//Proxy
+	void inviewerclose(int id);
 };

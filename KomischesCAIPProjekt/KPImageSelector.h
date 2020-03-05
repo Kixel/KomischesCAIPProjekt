@@ -14,6 +14,7 @@ public:
 	~KPImageSelector();
 
 	int getID();
+	void setImage(KPImage* image);
 
 private:
 	Ui::KPImageSelector ui;

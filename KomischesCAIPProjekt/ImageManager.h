@@ -24,7 +24,8 @@ public:
 	//bool deleteImage(string name);
 
 	bool iDExists(int n);
-
+	bool isEmpty();
+	int size();
 
 };
 

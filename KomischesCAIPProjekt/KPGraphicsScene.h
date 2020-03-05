@@ -2,6 +2,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+//#include <iostream>
 
 //#include <qgraphicssceneevent.h>
 

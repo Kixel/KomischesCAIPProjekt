@@ -41,6 +41,14 @@ bool ImageManager::iDExists(int n) {
 	return images.count(n) == 1;
 }
 
+bool ImageManager::isEmpty() {
+	return this->size() == 0;
+}
+
+int ImageManager::size() {
+	return images.size();
+}
+
 //bool ImageManager::deleteImage(string name) {
 //	return false;
 //}

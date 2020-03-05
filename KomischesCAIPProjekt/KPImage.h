@@ -14,7 +14,7 @@ class KPImage {
 	
 private:
 	string internalname;
-	Mat im;
+	QImage q;
 
 public:
 	KPImage();
@@ -22,10 +22,16 @@ public:
 	KPImage(QImage& data);
 	KPImage(const string name);
 	KPImage(int w, int h);
+	KPImage(int w, int h, int format);
 
 	QImage& getQ();
-	Mat& getM();
-	void setName(const string& n);
+	Mat getM();
+	void setName(const string n);
+	string getName();
+	int getWidth();
+	int getHeight();
+	int getNumChannels();
+	int getBitDepth();
 	
 	bool saveToDisk(const string name);
 };

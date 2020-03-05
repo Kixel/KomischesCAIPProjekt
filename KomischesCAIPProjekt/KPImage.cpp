@@ -1,20 +1,21 @@
 #include "KPImage.h"
 #include <iostream>
 
-KPImage::KPImage() : im(1,1, CV_8UC3) 
+KPImage::KPImage() : q(), internalname("Empty Image")
 {
 	// TODO add constructors to KPImage
 }
 
-KPImage::KPImage(Mat& m) : im(1, 1, CV_8UC3), internalname("Empty Image") {
-	this->im = m.clone();
+KPImage::KPImage(Mat& m) : q(), internalname("Empty Image") {
+	//this->im = m.clone();
+	// TODO conversion from Mat
 }
 
-KPImage::KPImage(QImage& data) : im(1, 1, CV_8UC3), internalname("") {
-	this->im = Mat(data.height(), data.width(), Tools::Type_Q2CV(data.format()), data.bits(), data.bytesPerLine());
+KPImage::KPImage(QImage& data) : q(data), internalname("") {
+	//this->im = Mat(data.height(), data.width(), Tools::Type_Q2CV(data.format()), data.bits(), data.bytesPerLine());
 }
 
-KPImage::KPImage(const string name) : im(1, 1, CV_8UC3), internalname(name) {
+KPImage::KPImage(const string name) : q(QString(name.c_str())), internalname(name) {
 	
 	/*string a(name);
 	replace(a.begin(), a.end(), '/', '\\');
@@ -28,27 +29,52 @@ KPImage::KPImage(const string name) : im(1, 1, CV_8UC3), internalname(name) {
 	
 }
 
-KPImage::KPImage(int w, int h) : im(w, h, CV_8UC3), internalname("") {
+KPImage::KPImage(int w, int h) : q(w, h, QImage::Format_RGB888), internalname("") {
 
+}
+
+KPImage::KPImage(int w, int h, int format) : q(w, h, QImage::Format(format)), internalname("") {
 }
 
 QImage& KPImage::getQ() {
 	// TODO conversion to Qimage
-	QImage* imgIn = new QImage((uchar*)im.data, im.cols, im.rows, im.step, QImage::Format(Tools::Type_CV2Q(im.type())));
-	return *imgIn;
+	return q;
 }
 
-Mat& KPImage::getM() {
-	return im;
+Mat KPImage::getM() {
+	return Mat();
 }
 
-void KPImage::setName(const string& n) {
+void KPImage::setName(const string n) {
 	this->internalname = n;
+}
+
+string KPImage::getName() {
+	return this->internalname;
+}
+
+int KPImage::getWidth() {
+	return q.width();
+}
+
+int KPImage::getHeight() {
+	return q.height();
+}
+
+int KPImage::getNumChannels() {
+	// TODO num channels from qimage
+	return -1;
+}
+
+int KPImage::getBitDepth() {
+	// TODO bit depth from qimage
+	return q.depth();
 }
 
 
 bool KPImage::saveToDisk(const string name) {
 	// TODO write save function
+	cout << name << endl;
 	return false;
 }
 
