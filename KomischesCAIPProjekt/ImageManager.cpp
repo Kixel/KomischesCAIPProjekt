@@ -4,19 +4,18 @@ ImageManager::ImageManager() : images(), keywalker(0) {
 
 }
 
-void ImageManager::addImage(KPImage* im, string info) {
+int ImageManager::addImage(KPImage* im, string info) {
 	images[keywalker] = im;
 	images[keywalker]->setName(info);
 
 
 	keywalker++;
-	return;
+	return this->keywalker - 1;
 }
 
 int ImageManager::loadImage(string filename) {
 	KPImage* n = new KPImage(filename);
-	this->addImage(n, filename);
-	return this->keywalker - 1;
+	return this->addImage(n, filename);
 }
 
 KPImage* ImageManager::getImage(int n) {

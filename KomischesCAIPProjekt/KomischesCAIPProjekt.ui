@@ -112,6 +112,7 @@
     <addaction name="separator"/>
     <addaction name="actionClose_Active"/>
     <addaction name="actionClose_All_Images"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuOperations">
@@ -175,7 +176,11 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="statusTip">
+    <string/>
+   </property>
+  </widget>
   <action name="actionOpen">
    <property name="text">
     <string>Open File(s)</string>
@@ -198,6 +203,9 @@
   </action>
   <action name="actionBenchmark">
    <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
     <bool>true</bool>
    </property>
    <property name="text">

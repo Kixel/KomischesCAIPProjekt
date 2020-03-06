@@ -10,6 +10,9 @@
 #include "KPImageSelector.h"
 #include <QSignalMapper>
 #include "ImProc.h"
+#include "KPDSampleImage.h"
+#include <QMessageBox>
+#include <QCloseEvent>
 
 
 class KomischesCAIPProjekt : public QMainWindow
@@ -22,6 +25,7 @@ public:
 private:
 	// Fields
 	Ui::KomischesCAIPProjektClass ui;
+	bool doBenchmark;
 	ImageManager M;
 	int activeM;
 	map<int, KPImageView*> V;
@@ -82,6 +86,7 @@ private slots:
 
 	
 	//Extras Menu
+	void on_actionBenchmark_triggered();
 	void on_actionMagnifier_triggered();
 
 

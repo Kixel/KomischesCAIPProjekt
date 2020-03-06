@@ -2,6 +2,11 @@
 #include <qimage.h>
 #include <opencv2/core/core.hpp>
 
+uint64_t Tools::benchstart = 0;
+//random_device Tools::rd;
+//mt19937_64 Tools::eng(rd());
+//uniform_int_distribution<unsigned int> Tools::distr;
+
 int Tools::Type_Q2CV(int t) {
 	switch (t) {
 	case QImage::Format_Indexed8: return 0;
@@ -23,6 +28,37 @@ int Tools::Type_CV2Q(int t) {
 bool Tools::PathValid(string p) {
 	ifstream infi(p.c_str());
 	return infi.good();
+}
+
+unsigned int Tools::GetRandomUint() {
+
+	//return Tools::distr(Tools::eng);
+	/*unsigned long long r = 0;
+
+	for (int i = 0; i < 5; ++i) {
+		r = (r << 15) | (rand() & 0x7FFF);
+	}
+
+	return (unsigned int)(r & 0xFFFFFFFFFFFFFFFFULL);*/
+	return rand() % 429496729;
+}
+
+uint64_t Tools::systemtime() {
+	using namespace std::chrono;
+	return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
+
+void Tools::startBenchmark(bool doBenchmark) {
+	if (!doBenchmark) return;
+	Tools::benchstart = Tools::systemtime();
+}
+
+void Tools::endBenchmark(bool doBenchmark, QStatusBar* status) {
+	if (!doBenchmark) return;
+	uint64_t end = Tools::systemtime();
+	uint64_t diff = end - Tools::benchstart;
+	string a = to_string(diff) + string("ms");
+	status->showMessage(QString(a.c_str()));
 }
 
 string Tools::readableformats = "*.bmp *.gif *.jpg *.jpeg *.png *.pbm *.pgm *.ppm *.xbm *.xpm";

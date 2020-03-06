@@ -2,6 +2,8 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "KPImage.h"
+#include "PerlinNoise.h"
+#include <iostream>
 
 class ImProc
 {
@@ -30,11 +32,11 @@ public:
 	static KPImage* close	(KPImage* O, Mat structure);
 
 	//Image creation
-	static KPImage* create_Gradientfast(int w, int h, bool toptodown);
-	static KPImage* create_Gradientslow(int w, int h, bool toptodown);
+	static KPImage* create_Gradientfast(int w, int h, bool toptodown, bool invert);
+	static KPImage* create_Gradientslow(int w, int h, bool toptodown, bool invert);
 	static KPImage* create_Colornoise(int w, int h);
 	static KPImage* create_Graynoise(int w, int h);
-	static KPImage* create_Colorperlin(int w, int h, int seed);
-	static KPImage* create_Grayperlin(int w, int h, int seed);
+	static KPImage* create_Colorperlin(int w, int h, unsigned int seed);
+	static KPImage* create_Grayperlin(int w, int h, unsigned int seed);
 };
 

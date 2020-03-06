@@ -14,7 +14,7 @@ private:
 
 public:
 	ImageManager();
-	void addImage(KPImage* im, string info);
+	int addImage(KPImage* im, string info);
 	int loadImage(string filename);
 
 	KPImage* getImage(int n);

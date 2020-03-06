@@ -1,7 +1,7 @@
 #include "KomischesCAIPProjekt.h"
 
 KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
-	: QMainWindow(parent), activeM(-1), M(), V(), B(), viewmapper(this), buttonmapper(this) {
+	: QMainWindow(parent), activeM(-1), M(), V(), B(), viewmapper(this), buttonmapper(this), doBenchmark(true) {
 	ui.setupUi(this);
 	connect(&viewmapper, SIGNAL(mapped(int)), this, SLOT(windowactivated(int)));
 	cout << "viewmapper setup" << endl;
@@ -79,7 +79,7 @@ void KomischesCAIPProjekt::on_actionOpen_triggered() {
 	string a = string("Images (") + Tools::readableformats + string(")");
 	cout << a << endl;
 	QStringList qs = QFileDialog::getOpenFileNames(this, tr("Open File"), QStandardPaths::standardLocations(QStandardPaths::PicturesLocation).last(), tr(a.c_str()));
-	
+	Tools::startBenchmark(doBenchmark);
 	for (int i1 = 0; i1 < qs.size(); i1++) {
 
 		cout << qs.at(i1).toStdString() << endl;
@@ -90,6 +90,7 @@ void KomischesCAIPProjekt::on_actionOpen_triggered() {
 		//V[this->activeM]->show();
 		V[this->activeM]->fitToCurrent();
 	}
+	Tools::endBenchmark(doBenchmark, ui.statusBar);
 }
 
 void KomischesCAIPProjekt::on_actionSave_Active_triggered() {
@@ -99,27 +100,83 @@ void KomischesCAIPProjekt::on_actionSave_Active_triggered() {
 	string oldpath = M.getImage(this->activeM)->getName();
 	if (Tools::PathValid(oldpath)) path = QString(oldpath.c_str());
 	QString qs = QFileDialog::getSaveFileName(this, tr("Save File"), path, tr(a.c_str()));
+	Tools::startBenchmark(doBenchmark);
 	M.getImage(this->activeM)->saveToDisk(qs.toStdString());
+	Tools::endBenchmark(doBenchmark, ui.statusBar);
 }
 
 void KomischesCAIPProjekt::on_actionGray_Gradient_fast_triggered() {
-
-	//M.addImage(ImProc::create_Gradientfast(), )
+	KPDSampleImage sam(true, true, false, string("Gray-Gradient fast"), this);
+	if(sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		this->activeM = M.addImage(ImProc::create_Gradientfast(sam.getWidth(), sam.getHeight(), !sam.getDirection(), sam.getInvert()), "Gray-gradient fast");
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionGray_Gradient_slow_triggered() {
+	KPDSampleImage sam(true, true, false, string("Gray-Gradient slow"), this);
+	if (sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		this->activeM = M.addImage(ImProc::create_Gradientslow(sam.getWidth(), sam.getHeight(), !sam.getDirection(), sam.getInvert()), "Gray-gradient slow");
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionColor_Noise_triggered() {
+	KPDSampleImage sam(false, false, false, string("Colored noise"), this);
+	if (sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		this->activeM = M.addImage(ImProc::create_Colornoise(sam.getWidth(), sam.getHeight()), "Colored noise");
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionGray_Noise_triggered() {
+	KPDSampleImage sam(false, false, false, string("Gray noise"), this);
+	if (sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		this->activeM = M.addImage(ImProc::create_Graynoise(sam.getWidth(), sam.getHeight()), "Gray noise");
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionColor_Perlin_triggered() {
+	KPDSampleImage sam(false, false, true, string("Colored perlin noise"), this);
+	if (sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		string n = string("Colored perlin noise, Seed: ") + to_string(sam.getSeed());
+		this->activeM = M.addImage(ImProc::create_Colorperlin(sam.getWidth(), sam.getHeight(), sam.getSeed()), n);
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionGray_Perlin_triggered() {
+	KPDSampleImage sam(false, false, true, string("Gray perlin noise"), this);
+	if (sam.exec() == 1) {
+		Tools::startBenchmark(doBenchmark);
+		string n = string("Gray perlin noise, Seed: ") + to_string(sam.getSeed());
+		this->activeM = M.addImage(ImProc::create_Grayperlin(sam.getWidth(), sam.getHeight(), sam.getSeed()), n);
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		this->addImage(this->activeM, M.getImage(this->activeM));
+		V[this->activeM]->show();
+		V[this->activeM]->fitToCurrent();
+	}
 }
 
 void KomischesCAIPProjekt::on_actionClose_Active_triggered() {
@@ -139,14 +196,21 @@ void KomischesCAIPProjekt::on_actionClose_All_Images_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionQuit_triggered() {
-	QApplication::quit();
+	if (M.isEmpty()) {
+		QApplication::quit();
+	} else {
+		QMessageBox::StandardButton a = QMessageBox::question(this, QString("Really exit?"), QString("Do you really want to exit the program?"));
+		if(a == QMessageBox::StandardButton::Yes) QApplication::quit();
+	}
 }
 
 void KomischesCAIPProjekt::closeEvent(QCloseEvent* event) {
 	on_actionQuit_triggered();
+	event->ignore();
 }
 
 void KomischesCAIPProjekt::on_actionShow_Histogram_triggered() {
+	// TODO add histogramm function
 }
 
 void KomischesCAIPProjekt::on_actionInvert_triggered() {
@@ -201,6 +265,10 @@ void KomischesCAIPProjekt::on_actionDilate_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionClose_triggered() {
+}
+
+void KomischesCAIPProjekt::on_actionBenchmark_triggered() {
+	this->doBenchmark = ui.actionBenchmark->isChecked();
 }
 
 void KomischesCAIPProjekt::on_actionMagnifier_triggered() {

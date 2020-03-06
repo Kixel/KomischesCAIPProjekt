@@ -75,6 +75,6 @@ int KPImage::getBitDepth() {
 bool KPImage::saveToDisk(const string name) {
 	// TODO write save function
 	cout << name << endl;
-	return false;
+	return q.save(QString(name.c_str()));
 }
 
