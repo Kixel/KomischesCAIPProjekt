@@ -24,7 +24,7 @@ public:
 	static vector<int>* grayhisto(KPImage* O);
 
 	//Image Processing via lib
-	static KPImage* convert2Gray(KPImage* O);
+	static KPImage* convert2Gray(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* rotate  (KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* resize	(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* erode	(KPImage* O, Mat structure);

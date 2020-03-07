@@ -69,6 +69,9 @@
        <property name="textFormat">
         <enum>Qt::PlainText</enum>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item>
@@ -189,10 +192,10 @@
           <item>
            <widget class="QSlider" name="horizontalSlider">
             <property name="minimum">
-             <number>-10</number>
+             <number>-9</number>
             </property>
             <property name="maximum">
-             <number>10</number>
+             <number>9</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>

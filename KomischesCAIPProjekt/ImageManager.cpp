@@ -28,8 +28,14 @@ KPImage* ImageManager::getImage(int n) {
 //	return cv::Mat();
 //}
 
+void ImageManager::replaceImage(int ID, KPImage* im) {
+	delete images[ID];
+	images[ID] = im;
+}
+
 bool ImageManager::deleteImage(int n) {
 	if (this->iDExists(n)) {
+		delete images[n];
 		this->images.erase(n);
 		return true;
 	}

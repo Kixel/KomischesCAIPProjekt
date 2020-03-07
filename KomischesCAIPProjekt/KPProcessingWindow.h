@@ -5,8 +5,9 @@
 #include "KPImage.h"
 #include <QGraphicsScene>
 #include <QPixMap>
+#include <QDialog>
 
-class KPProcessingWindow : public QWidget
+class KPProcessingWindow : public QDialog
 {
 	Q_OBJECT
 
@@ -29,6 +30,7 @@ public:
 	void setupDouble(string L, double V, double min, double max);
 	void setupSlider1(string T, int V);
 	void setupSlider2(string T, int V);
+	void setDoublePrecision(double a);
 
 	int getInt1();
 	int getInt2();
@@ -40,6 +42,12 @@ public:
 	int getSlider2();
 
 	void resizeEvent(QResizeEvent* event);
+	int getState();
+
+	KPImage* getResult();
+	KPImage* getSource();
+
+	bool copyToNew();
 	
 private slots:
 	void updatePreview();
@@ -65,6 +73,8 @@ private:
 	KPImage* (*Worker)(KPImage*, KPProcessingWindow*);
 
 	int exitstate;
+
+	void closeEvent(QCloseEvent* event);
 
 signals:
 	void finished(KPProcessingWindow* kp);

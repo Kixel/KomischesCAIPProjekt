@@ -1,6 +1,8 @@
 #pragma once
 #include <QImage>
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc/types_c.h>
 #include <opencv2/highgui/highgui.hpp>
 #include "Tools.h"
 #include <algorithm>
@@ -26,6 +28,7 @@ public:
 
 	QImage& getQ();
 	Mat getM();
+	void setM(Mat& m);
 	void setName(const string n);
 	string getName();
 	int getWidth();

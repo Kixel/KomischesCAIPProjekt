@@ -37,19 +37,48 @@ KPImage* ImProc::filter(KPImage* O, Mat mask, int maskcenterx, int maskcentery, 
 }
 
 vector<int>* ImProc::grayhisto(KPImage* O) {
-	return new vector<int>();
+	vector<int>* out = new vector<int>(256, 0);
+	for (int x = 0; x < O->getWidth(); x++) {
+		for (int y = 0; y < O->getHeight(); y++) {
+			out->at(qGray(O->getQ().pixel(x, y)))++;
+		}
+	}
+	return out;
 }
 
-KPImage* ImProc::convert2Gray(KPImage* O) {
-	return nullptr;
+KPImage* ImProc::convert2Gray(KPImage* O, KPProcessingWindow* kpp) {
+	KPImage* R = new KPImage();
+	R->getQ() = O->getQ().convertToFormat(QImage::Format::Format_Grayscale8);
+	R->setName(O->getName() + string(" gray"));
+	return R;
 }
 
 KPImage* ImProc::rotate(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	/*
+	Mat src = Mat(O->getM());
+	double angle = kpp->getDouble1();
+
+	Point2f center((src.cols - 1) / 2.0, (src.rows - 1) / 2.0);
+	Mat rot = cv::getRotationMatrix2D(center, angle, 1.0);
+	Rect2f bbox = cv::RotatedRect(cv::Point2f(), src.size(), angle).boundingRect2f();
+	rot.at<double>(0, 2) += bbox.width / 2.0 - src.cols / 2.0;
+	rot.at<double>(1, 2) += bbox.height / 2.0 - src.rows / 2.0;
+
+	Mat dst;
+	warpAffine(src, dst, rot, bbox.size());
+	KPImage* R = new KPImage(dst);
+	R->setName(O->getName() + string(" rotated: ") + to_string(angle));*/
+	QTransform tm;
+	tm.rotate(kpp->getDouble1());
+	KPImage* R = new KPImage(O->getQ().transformed(tm));
+	R->setName(O->getName() + string(" rotated: ") + to_string(kpp->getDouble1()));
+	return R;
 }
 
 KPImage* ImProc::resize(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	KPImage* R = new KPImage(O->getQ().scaled(kpp->getInt1(), kpp->getInt2()));
+	R->setName(O->getName() + string(" resized: ") + to_string(kpp->getInt1()) + string("x") + to_string(kpp->getInt2()));
+	return R;
 }
 
 KPImage* ImProc::erode(KPImage* O, Mat structure) {
@@ -152,10 +181,6 @@ KPImage* ImProc::create_Colorperlin(int w, int h, unsigned int seed, double zoom
 	KPImage* n = new KPImage(w, h, 13); //Format RGB888
 	QImage& q = n->getQ();
 
-	//double rlayer = 0.1;
-	//double glayer = 0.5;
-	//double blayer = 0.9;
-
 	PerlinNoise p(seed);
 
 	for (int row = 0; row < h; row++) {
@@ -188,31 +213,117 @@ KPImage* ImProc::create_Grayperlin(int w, int h, unsigned int seed, double zoomf
 }
 
 int ImProc::otsu(KPImage* im) {
+	// TODO otsu
 	return 0;
 }
 
 KPImage* ImProc::invert(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	KPImage* R = new KPImage(*O);
+	R->getQ().invertPixels();
+	R->setName(O->getName() + string(" inverted"));
+	return R;
 }
 
 KPImage* ImProc::crop(KPImage* O, KPProcessingWindow* kpp) {
-	return O;
+	KPImage* R = new KPImage(*O);
+	int wi = abs(kpp->getInt3() - kpp->getInt1());
+	int hi = abs(kpp->getInt4() - kpp->getInt2());
+	int x = min(kpp->getInt3(), kpp->getInt1());
+	int y = min(kpp->getInt4(), kpp->getInt2());
+	R->getQ() = R->getQ().copy(x, y, wi, hi);
+	R->setName(O->getName() + string(" cropped"));
+	return R;
 }
 
 KPImage* ImProc::gamma(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	vector<int> precalc(256, 0);
+	for (int i = 0; i < 256; i++) {
+		precalc[i] = pow((double)i / 255.0, kpp->getDouble1()) * 255.0;
+	}
+
+
+	KPImage* R = new KPImage(*O);
+	for (int row = 0; row < O->getHeight(); row++) {
+		for (int col = 0; col < O->getWidth(); col++) {
+			QColor qc;
+			if (O->getQ().format() == QImage::Format_RGB888) {
+				int nvr = precalc[O->getQ().pixelColor(col, row).red()];
+				int nvg = precalc[O->getQ().pixelColor(col, row).green()];
+				int nvb = precalc[O->getQ().pixelColor(col, row).blue()];
+				qc = QColor(nvr, nvg, nvb);
+				//cout << qc.value() << endl;
+			} else if (O->getQ().format() == QImage::Format_Grayscale8) {
+				int nvr = precalc[qGray(O->getQ().pixelColor(col, row).rgb())];
+				qc = QColor(nvr, nvr, nvr);
+			} else if (O->getQ().format() == QImage::Format_Mono) return R;
+			R->getQ().setPixelColor(col, row, qc);
+		}
+	}
+	R->setName(O->getName() + string(" gamma: ") + to_string(kpp->getDouble1()));
+	return R;
 }
 
 KPImage* ImProc::contrast(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	vector<int> precalc(256, 0);
+	//precalc.reserve(256);
+	double minv = 255;
+	double maxv = 0;
+	for (int i = 0; i < O->getHeight(); i++) {
+		for (int j = 0; j < O->getWidth(); j++) {
+			int g = qGray(O->getQ().pixelColor(j, i).rgb());
+			if (g < minv) minv = g;
+			if (g > maxv) maxv = g;
+		}
+	}
+	double nmax = max(kpp->getInt1(), kpp->getInt2());
+	double nmin = min(kpp->getInt1(), kpp->getInt2());
+	for (int i = 0; i < 256; i++) {
+		precalc[i] = nmin + (i - minv) * ((nmax-nmin) / (maxv - minv));
+		//cout << precalc[i] << endl;
+	}
+
+
+	KPImage* R = new KPImage(*O);
+	for (int row = 0; row < O->getHeight(); row++) {
+		for (int col = 0; col < O->getWidth(); col++) {
+			QColor qc;
+			if (O->getQ().format() == QImage::Format_Grayscale8) {
+				int nvr = precalc[qGray(O->getQ().pixelColor(col, row).rgb())];
+				qc = QColor(nvr, nvr, nvr);
+			} else return R;
+			R->getQ().setPixelColor(col, row, qc);
+		}
+	}
+	R->setName(O->getName() + string(" contrast: ") + to_string(nmin) + string("->") + to_string(nmax));
+	return R;
 }
 
 KPImage* ImProc::binarise(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	KPImage* R = new KPImage(O->getWidth(), O->getHeight(), 1); // Format mono
+	for (int row = 0; row < O->getHeight(); row++) {
+		uchar* t = O->getQ().scanLine(row);
+		//bool* r = R->getQ().scanLine(row);
+		for (int col = 0; col < O->getWidth(); col++) {
+			R->getQ().setPixel(col, row, t[col] > kpp->getSlider1());
+		}
+	}
+	R->setName(O->getName() + string(" binarised: ") + to_string(kpp->getSlider1()));
+	return R;
 }
 
 KPImage* ImProc::binarise2(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	KPImage* R = new KPImage(O->getWidth(), O->getHeight(), 1); // Format mono
+	int lower = min(kpp->getSlider1(), kpp->getSlider2());
+	int higher = max(kpp->getSlider1(), kpp->getSlider2());
+	for (int row = 0; row < O->getHeight(); row++) {
+		uchar* t = O->getQ().scanLine(row);
+		//bool* r = R->getQ().scanLine(row);
+		for (int col = 0; col < O->getWidth(); col++) {
+			R->getQ().setPixel(col, row, (t[col] > lower && t[col] < higher));
+		}
+	}
+	R->setName(O->getName() + string(" binarised: ") + to_string(lower) + string("<n<") + to_string(higher));
+	return R;
 }
 
 KPImage* ImProc::adaptthresh(KPImage* O, KPProcessingWindow* kpp) {

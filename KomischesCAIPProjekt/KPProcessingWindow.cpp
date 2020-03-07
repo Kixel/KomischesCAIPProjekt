@@ -2,7 +2,7 @@
 #include <iostream>
 
 KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWindow*), KPImage* original, QWidget* parent)
-	: QWidget(parent), Worker(Func), exitstate(-1)
+	: QDialog(parent), Worker(Func), exitstate(-1)
 {
 	cout << 1;
 	this->orig = original;
@@ -38,11 +38,14 @@ KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWi
 	connect(ui.buttonOk, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.buttonCancel, SIGNAL(clicked()), this, SLOT(abort()));
 	cout << 10;
+	this->setModal(true);
+	this->setWindowModality(Qt::WindowModality::ApplicationModal);
 }
 
 KPProcessingWindow::~KPProcessingWindow() {
 	delete left;
 	delete right;
+	delete preview;
 }
 
 void KPProcessingWindow::fitToCurrent() {
@@ -99,31 +102,31 @@ void KPProcessingWindow::setupLabels(string leftW, string rightH) {
 void KPProcessingWindow::setupSpinner12(string leftL, int leftV, int leftmin, int leftmax, string rightL, int rightV, int rightmin, int rightmax) {
 	ui.label_6->setText(QString(leftL.c_str()));
 	ui.label_7->setText(QString(rightL.c_str()));
-	ui.spinBox->setValue(leftV);
 	ui.spinBox->setRange(leftmin, leftmax);
-	ui.spinBox_2->setValue(rightV);
+	ui.spinBox->setValue(leftV);
 	ui.spinBox_2->setRange(rightmin, rightmax);
+	ui.spinBox_2->setValue(rightV);
 }
 
 void KPProcessingWindow::setupSpinner34(string leftL, int leftV, int leftmin, int leftmax, string rightL, int rightV, int rightmin, int rightmax) {
 	ui.label_8->setText(QString(leftL.c_str()));
 	ui.label_9->setText(QString(rightL.c_str()));
-	ui.spinBox_3->setValue(leftV);
 	ui.spinBox_3->setRange(leftmin, leftmax);
-	ui.spinBox_4->setValue(rightV);
+	ui.spinBox_3->setValue(leftV);
 	ui.spinBox_4->setRange(rightmin, rightmax);
+	ui.spinBox_4->setValue(rightV);
 }
 
 void KPProcessingWindow::setupSpinner5(string L, int V, int min, int max) {
 	ui.label_3->setText(QString(L.c_str()));
-	ui.spinBox_5->setValue(V);
 	ui.spinBox_5->setRange(min, max);
+	ui.spinBox_5->setValue(V);
 }
 
 void KPProcessingWindow::setupDouble(string L, double V, double min, double max) {
 	ui.label->setText(QString(L.c_str()));
-	ui.doubleSpinBox->setValue(V);
 	ui.doubleSpinBox->setRange(min, max);
+	ui.doubleSpinBox->setValue(V);
 }
 
 void KPProcessingWindow::setupSlider1(string T, int V) {
@@ -136,6 +139,10 @@ void KPProcessingWindow::setupSlider2(string T, int V) {
 	//string t = string("Threshold (default: ") + T + string(")");
 	ui.label_10->setText(QString(T.c_str()));
 	ui.horizontalSlider_2->setValue(V);
+}
+
+void KPProcessingWindow::setDoublePrecision(double a) {
+	ui.doubleSpinBox->setSingleStep(a);
 }
 
 int KPProcessingWindow::getInt1() {
@@ -175,6 +182,22 @@ void KPProcessingWindow::resizeEvent(QResizeEvent* event) {
 	this->fitToCurrent();
 }
 
+int KPProcessingWindow::getState() {
+	return this->exitstate;
+}
+
+KPImage* KPProcessingWindow::getResult() {
+	return Worker(this->orig, this);
+}
+
+KPImage* KPProcessingWindow::getSource() {
+	return orig;
+}
+
+bool KPProcessingWindow::copyToNew() {
+	return ui.copyToNew->isChecked();
+}
+
 void KPProcessingWindow::abort() {
 	cout << "abort" << endl;
 	this->exitstate = 0;
@@ -185,4 +208,8 @@ void KPProcessingWindow::finish() {
 	cout << "ok!" << endl;
 	this->exitstate = 1;
 	emit finished(this);
+}
+
+void KPProcessingWindow::closeEvent(QCloseEvent* event) {
+	abort();
 }

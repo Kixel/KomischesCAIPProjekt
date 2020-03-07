@@ -214,73 +214,150 @@ void KomischesCAIPProjekt::on_actionShow_Histogram_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionInvert_triggered() {
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::invert, M.getImage(activeM), this);
+	proc->setup("Invert image", false, false, false, false, false, false, false);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionCrop_triggered() {
-	cout << "action triggered" << endl;
-	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::crop, M.getImage(activeM));
-	cout << "window created" << endl;
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::crop, M.getImage(activeM), this);
 	proc->setup("Crop image", false, true, true, false, false, false, false);
-	cout << "window setup" << endl;
+	int w = M.getImage(activeM)->getWidth();
+	int h = M.getImage(activeM)->getHeight();
+	proc->setupSpinner12("First X-coordinate", 0, 0, w-1, "First Y-coordinate", 0, 0, h-1);
+	proc->setupSpinner34("Second X-coordinate", w-1, 0, w-1, "Second Y-coordinate", h-1, 0, h-1);
 	proc->show();
 	proc->fitToCurrent();
-	cout << "window visible" << endl;
 	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
-	cout << "handler connected" << endl;
 }
 
 void KomischesCAIPProjekt::on_actionResize_triggered() {
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::resize, M.getImage(activeM), this);
+	proc->setup("Resize image", true, true, false, false, false, false, false);
+	int w = M.getImage(activeM)->getWidth();
+	int h = M.getImage(activeM)->getHeight();
+	proc->setupLabels(to_string(w), to_string(h));
+	proc->setupSpinner12("New width", w/2, 1, 32000, "New height", h/2, 1, 32000);
+
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionRotate_triggered() {
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::rotate, M.getImage(activeM), this);
+	proc->setup("Rotate image", false, false, false, true, false, false, false);
+	proc->setupDouble("Angle", 0, 0, 360);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionConvert_to_Grayscale_triggered() {
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::convert2Gray, M.getImage(activeM), this);
+	proc->setup("Convert to grayscale", false, false, false, false, false, false, false);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionGammacorrection_triggered() {
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::gamma, M.getImage(activeM), this);
+	proc->setup("Gamma correction", false, false, false, true, false, false, false);
+	proc->setDoublePrecision(0.05);
+	proc->setupDouble("Gamma", 1, 0, 100);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
+
 }
 
 void KomischesCAIPProjekt::on_actionContrastcorrection_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		// TODO error message
+		return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::contrast, M.getImage(activeM), this);
+	proc->setup("Contrast correction", false, true, false, false, false, false, false);
+	proc->setupSpinner12("Minimum grayvalue", 0, 0, 255, "Maximum grayvalue", 255, 0, 255);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionBinarise_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		// TODO error message
+		return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::binarise, M.getImage(activeM), this);
+	proc->setup("Binarise", false, false, false, false, false, true, false);
+	int ot = ImProc::otsu(M.getImage(activeM));
+	proc->setupSlider1(string("Threshold (default:") + to_string(ot) + ")", ot);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionBinarise_range_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		// TODO error message
+		return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::binarise2, M.getImage(activeM), this);
+	proc->setup("Binarise with 2 thresholds", false, false, false, false, false, true, true);
+	int ot = ImProc::otsu(M.getImage(activeM));
+	proc->setupSlider1(string("Threshold (default:") + to_string(ot) + ")", ot);
+	proc->setupSlider2(string("Threshold (default:255)"), 255);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionAdaptive_Binarise_triggered() {
+	// TODO adaptive bin
 }
 
 void KomischesCAIPProjekt::on_actionMean_triggered() {
+	// TODO mean filter
 }
 
 void KomischesCAIPProjekt::on_actionMedian_triggered() {
+	// TODO median filter
 }
 
 void KomischesCAIPProjekt::on_actionGauss_triggered() {
+	// TODO gauss filter
 }
 
 void KomischesCAIPProjekt::on_actionEdge_triggered() {
+	// TODO edge filter
 }
 
 void KomischesCAIPProjekt::on_actionRandom_triggered() {
+	// TODO random filter
 }
 
 void KomischesCAIPProjekt::on_actionCustom_triggered() {
+	// TODO custom filter
 }
 
 void KomischesCAIPProjekt::on_actionErode_triggered() {
+	// TODO erode
 }
 
 void KomischesCAIPProjekt::on_actionOpen_2_triggered() {
+	// TODO opening
 }
 
 void KomischesCAIPProjekt::on_actionDilate_triggered() {
+	// TODO dilate
 }
 
 void KomischesCAIPProjekt::on_actionClose_triggered() {
+	// TODO closing
 }
 
 void KomischesCAIPProjekt::on_actionBenchmark_triggered() {
@@ -288,6 +365,7 @@ void KomischesCAIPProjekt::on_actionBenchmark_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionMagnifier_triggered() {
+	// TODO magnifier
 }
 
 void KomischesCAIPProjekt::inviewerclose(int id) {
@@ -296,4 +374,19 @@ void KomischesCAIPProjekt::inviewerclose(int id) {
 
 void KomischesCAIPProjekt::improcesserclose(KPProcessingWindow* k) {
 	cout << "Call received!" << endl;
+	k->hide();
+	if (k->getState() > 0) {
+		Tools::startBenchmark(doBenchmark);
+		KPImage* r = k->getResult();
+		Tools::endBenchmark(doBenchmark, ui.statusBar);
+		if (k->copyToNew()) {
+			int nid = M.addImage(r, r->getName());
+			this->activeM = nid;
+			this->addImage(nid, r);
+		} else {
+			M.replaceImage(this->activeM, r);
+			this->changeImage(this->activeM, r);
+		}
+	}
+	delete k;
 }

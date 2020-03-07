@@ -39,6 +39,8 @@ const int KPImageView::getID() {
 void KPImageView::mouseHoverUpdater(int x, int y) {
 	string pos;
 	string col;
+	x--;
+	y--;
 	if (x < 0 || y < 0 || x > currentImage->getWidth() || y > currentImage->getHeight()) {
 		pos += string("X: ") + to_string(x) + string(" Y: ") + to_string(y);
 		pos += string("(out of bounds) ");

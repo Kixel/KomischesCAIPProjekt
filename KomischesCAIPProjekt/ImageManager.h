@@ -20,6 +20,8 @@ public:
 	KPImage* getImage(int n);
 	//cv::Mat getImage(string name);
 
+	void replaceImage(int ID, KPImage* im);
+
 	bool deleteImage(int n);
 	//bool deleteImage(string name);
 

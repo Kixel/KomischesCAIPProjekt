@@ -1,32 +1,24 @@
 #include "KPImage.h"
 #include <iostream>
 
-KPImage::KPImage() : q(), internalname("Empty Image")
+KPImage::KPImage() : q(), internalname("")
 {
-	// TODO add constructors to KPImage
+
 }
 
-KPImage::KPImage(Mat& m) : q(), internalname("Empty Image") {
-	//this->im = m.clone();
-	// TODO conversion from Mat
+KPImage::KPImage(Mat& m) : q(), internalname("") {
+	this->setM(m);
 }
 
 KPImage::KPImage(QImage& data) : q(data), internalname("") {
-	//this->im = Mat(data.height(), data.width(), Tools::Type_Q2CV(data.format()), data.bits(), data.bytesPerLine());
 }
 
 KPImage::KPImage(const string name) : q(QString(name.c_str())), internalname(name) {
-	
-	/*string a(name);
-	replace(a.begin(), a.end(), '/', '\\');
-	a = "D:\magic.jpg";
-	cout << a << endl;
-	im = imread(a, 1);
-	if (im.data == NULL) {
-		cout << "data is null" << endl;
+	if (q.isGrayscale()) {
+		q = q.convertToFormat(QImage::Format_Grayscale8);
+	} else {
+		q = q.convertToFormat(QImage::Format_RGB888);
 	}
-	cout << "Image format " << im.type() << " size " << im.cols << " " << im.rows << " " << endl;*/
-	
 }
 
 KPImage::KPImage(int w, int h) : q(w, h, QImage::Format_RGB888), internalname("") {
@@ -37,12 +29,39 @@ KPImage::KPImage(int w, int h, int format) : q(w, h, QImage::Format(format)), in
 }
 
 QImage& KPImage::getQ() {
-	// TODO conversion to Qimage
 	return q;
 }
 
 Mat KPImage::getM() {
-	return Mat();
+	switch (q.format()) {
+	case QImage::Format_RGB888:
+	{
+		QImage swapped = q.rgbSwapped();
+		return Mat(Mat(swapped.height(), swapped.width(), CV_8UC3,
+			const_cast<uchar*>(swapped.bits()), static_cast<size_t>(swapped.bytesPerLine())));
+	}
+	case QImage::Format_Grayscale8:
+	{
+		return Mat(Mat(q.height(), q.width(), CV_8UC1,
+			const_cast<uchar*>(q.bits()), static_cast<size_t>(q.bytesPerLine())));
+	}
+	}
+}
+
+void KPImage::setM(Mat& m) {
+	switch (m.type()) {
+	case CV_8UC3:
+	{
+		//delete& q;
+		q = QImage(m.data, m.cols, m.rows, static_cast<int>(m.step), QImage::Format_RGB888);
+		q = q.rgbSwapped();
+	}
+	case CV_8UC1:
+	{
+		//delete &q;
+		q = QImage(m.data, m.cols, m.rows, static_cast<int>(m.step), QImage::Format_Grayscale8);
+	}
+	}
 }
 
 void KPImage::setName(const string n) {
