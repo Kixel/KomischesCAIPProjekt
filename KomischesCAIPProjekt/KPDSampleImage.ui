@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>290</height>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -136,7 +136,7 @@
         <property name="horizontalSpacing">
          <number>3</number>
         </property>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QCheckBox" name="checkBox">
           <property name="text">
            <string>Unchecked: top/down, checked: left/right</string>
@@ -167,12 +167,45 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0">
          <widget class="QCheckBox" name="checkBox_2">
           <property name="text">
            <string>Invert direction</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Zoom</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="horizontalSlider">
+            <property name="minimum">
+             <number>-10</number>
+            </property>
+            <property name="maximum">
+             <number>10</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>

@@ -12,7 +12,7 @@ class KPDSampleImage : public QDialog
 	Q_OBJECT
 
 public:
-	KPDSampleImage(bool needsdirection, bool needsinvert, bool needsspinner, string genname = "Generic", QWidget *parent = Q_NULLPTR);
+	KPDSampleImage(string genname = "Generic", bool needsdirection = false, bool needsinvert = false, bool needsspinner = false, bool needsslider=false, QWidget *parent = Q_NULLPTR);
 	~KPDSampleImage();
 
 	const int getHeight();
@@ -20,6 +20,7 @@ public:
 	const int getSeed();
 	const bool getDirection();
 	const bool getInvert();
+	const double getZoom();
 	void setGenType(const string a);
 
 private:

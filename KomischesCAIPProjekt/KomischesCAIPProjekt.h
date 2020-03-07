@@ -13,6 +13,7 @@
 #include "KPDSampleImage.h"
 #include <QMessageBox>
 #include <QCloseEvent>
+#include "KPProcessingWindow.h"
 
 
 class KomischesCAIPProjekt : public QMainWindow
@@ -71,6 +72,8 @@ private slots:
 	void on_actionGammacorrection_triggered();
 	void on_actionContrastcorrection_triggered();
 	void on_actionBinarise_triggered();
+	void on_actionBinarise_range_triggered();
+	void on_actionAdaptive_Binarise_triggered();
 		//Filter Submmenu
 		void on_actionMean_triggered();
 		void on_actionMedian_triggered();
@@ -92,4 +95,5 @@ private slots:
 
 	//Proxy
 	void inviewerclose(int id);
+	void improcesserclose(KPProcessingWindow* k);
 };

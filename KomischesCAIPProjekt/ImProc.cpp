@@ -31,51 +31,24 @@
 //	return KPImage();
 //}
 
-KPImage* ImProc::invert(KPImage* O) {
-	return nullptr;
-}
-
-KPImage* ImProc::crop(KPImage* O, int startx, int starty, int endx, int endy) {
-	return nullptr;
-}
-
-KPImage* ImProc::gamma(KPImage* O, double gammavalue) {
-	return nullptr;
-}
-
-KPImage* ImProc::contrast(KPImage* O, int startg, int endg) {
-	return nullptr;
-}
-
-KPImage* ImProc::binarise(KPImage* O, int thresh) {
-	return nullptr;
-}
-
-KPImage* ImProc::binarise2(KPImage* O, int threshlower, int threshhigher) {
-	return nullptr;
-}
-
-KPImage* ImProc::adaptthresh(KPImage* O, int range, double correctionvalue) {
-	return nullptr;
-}
 
 KPImage* ImProc::filter(KPImage* O, Mat mask, int maskcenterx, int maskcentery, int outofbounds) {
 	return nullptr;
 }
 
-vector<int> ImProc::grayhisto(KPImage* O) {
-	return vector<int>();
+vector<int>* ImProc::grayhisto(KPImage* O) {
+	return new vector<int>();
 }
 
 KPImage* ImProc::convert2Gray(KPImage* O) {
 	return nullptr;
 }
 
-KPImage* ImProc::rotate(KPImage* O, double angle) {
+KPImage* ImProc::rotate(KPImage* O, KPProcessingWindow* kpp) {
 	return nullptr;
 }
 
-KPImage* ImProc::resize(KPImage* O, int w, int h, cv::InterpolationFlags) {
+KPImage* ImProc::resize(KPImage* O, KPProcessingWindow* kpp) {
 	return nullptr;
 }
 
@@ -175,44 +148,30 @@ KPImage* ImProc::create_Graynoise(int w, int h) {
 	return n;
 }
 
-KPImage* ImProc::create_Colorperlin(int w, int h, unsigned int seed) {
+KPImage* ImProc::create_Colorperlin(int w, int h, unsigned int seed, double zoomfactor) {
 	KPImage* n = new KPImage(w, h, 13); //Format RGB888
 	QImage& q = n->getQ();
 
-	double rlayer = 0.1;
-	double glayer = 0.5;
-	double blayer = 0.9;
+	//double rlayer = 0.1;
+	//double glayer = 0.5;
+	//double blayer = 0.9;
 
 	PerlinNoise p(seed);
 
-
 	for (int row = 0; row < h; row++) {
-		//cout << "row " << row << endl;
-		//uchar* line = q.scanLine(row);
 		for (int col = 0; col < w; col++) {
-			double x = (double)col / (double)(w-1);
-			double y = (double)row / (double)(h-1);
-			//if (row == h-1) {
-			//	cout << "x" << x << "y" << y << endl;
-			//}
-			//*line = (uchar)255;
-			//line++;
-			uchar r = (uchar)floor(p.noise(x, y, rlayer) * 255);
-			//*line = (uchar)floor(p.noise(x, y, rlayer)*255);
-			//line++;
-			uchar g = (uchar)floor(p.noise(x, y, glayer) * 255);
-			//*line = (uchar)floor(p.noise(x, y, glayer)*255);
-			//line++;
-			uchar b = (uchar)floor(p.noise(x, y, blayer) * 255);
-			//*line = (uchar)floor(p.noise(x, y, blayer)*255);
-			//line++;
+			double x = ((double)col / (double)(w - 1)) / zoomfactor;
+			double y = ((double)row / (double)(h - 1)) / zoomfactor;
+			uchar r = (uchar)floor(p.noise(x, y, 0.5) * 255);
+			uchar g = (uchar)floor(p.noise(x, 0.5, y) * 255);
+			uchar b = (uchar)floor(p.noise(0.5, x, y) * 255);
 			q.setPixelColor(col, row, qRgb(r, g, b));
 		}
 	}
 	return n;
 }
 
-KPImage* ImProc::create_Grayperlin(int w, int h, unsigned int seed) {
+KPImage* ImProc::create_Grayperlin(int w, int h, unsigned int seed, double zoomfactor) {
 	KPImage* n = new KPImage(w, h, 24); //Format Grayscale8
 	QImage& q = n->getQ();
 	PerlinNoise p(seed);
@@ -220,8 +179,42 @@ KPImage* ImProc::create_Grayperlin(int w, int h, unsigned int seed) {
 	for (int i = 0; i < h; i++) {
 		uchar* t = q.scanLine(i);
 		for (int j = 0; j < w; j++) {
-			t[j] = (uchar)floor(p.noise(j, i, 0.1) * 255);
+			double x = ((double)j / (double)(w - 1)) / zoomfactor;
+			double y = ((double)i / (double)(h - 1)) / zoomfactor;
+			t[j] = (uchar)floor(p.noise(x, y, 0.1) * 255);
 		}
 	}
 	return n;
+}
+
+int ImProc::otsu(KPImage* im) {
+	return 0;
+}
+
+KPImage* ImProc::invert(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
+}
+
+KPImage* ImProc::crop(KPImage* O, KPProcessingWindow* kpp) {
+	return O;
+}
+
+KPImage* ImProc::gamma(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
+}
+
+KPImage* ImProc::contrast(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
+}
+
+KPImage* ImProc::binarise(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
+}
+
+KPImage* ImProc::binarise2(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
+}
+
+KPImage* ImProc::adaptthresh(KPImage* O, KPProcessingWindow* kpp) {
+	return nullptr;
 }

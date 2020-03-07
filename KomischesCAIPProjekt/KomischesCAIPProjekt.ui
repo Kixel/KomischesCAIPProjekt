@@ -154,6 +154,9 @@
     <addaction name="actionContrastcorrection"/>
     <addaction name="separator"/>
     <addaction name="actionBinarise"/>
+    <addaction name="actionBinarise_range"/>
+    <addaction name="actionAdaptive_Binarise"/>
+    <addaction name="separator"/>
     <addaction name="menuFilter"/>
     <addaction name="menuMorphology"/>
    </widget>
@@ -433,6 +436,16 @@
    </property>
    <property name="text">
     <string>Close Active</string>
+   </property>
+  </action>
+  <action name="actionBinarise_range">
+   <property name="text">
+    <string>Binarise (range)</string>
+   </property>
+  </action>
+  <action name="actionAdaptive_Binarise">
+   <property name="text">
+    <string>Adaptive Binarise</string>
    </property>
   </action>
  </widget>
