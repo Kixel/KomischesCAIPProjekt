@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="std">
+    <file>noimage.png</file>
+  </qresource>
+</RCC>

@@ -23,6 +23,12 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Header Files\View">
+      <UniqueIdentifier>{5f40c7b1-d336-423b-b30f-f64d62e82984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View">
+      <UniqueIdentifier>{b6fb7897-6aec-4303-a836-e0adcabdddc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,9 +37,78 @@
     <ClCompile Include="KomischesCAIPProjekt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KPImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImProc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KPGraphicsScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KPDSampleImage.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPFilterPreDialog.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPImageSelector.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPImageView.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPMagnifier.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPProcessingWindow.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="KPHistoView.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="HistWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="KPGraphicsScene.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="KPDSampleImage.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPFilterPreDialog.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPImageSelector.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPImageView.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPMagnifier.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPProcessingWindow.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="KPHistoView.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="HistWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -41,10 +116,48 @@
     <QtUic Include="KomischesCAIPProjekt.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="KPImageSelector.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPImageView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPDSampleImage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPProcessingWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPFilterPreDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPMagnifier.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPHistoView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="KomischesCAIPProjekt.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KPImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImProc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

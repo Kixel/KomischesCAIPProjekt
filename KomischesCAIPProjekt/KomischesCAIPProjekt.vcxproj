@@ -30,9 +30,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>C:\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>c:\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>c:\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -69,9 +73,10 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_world412d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -82,23 +87,61 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>opencv_world412d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HistWidget.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="ImProc.cpp" />
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
+    <ClCompile Include="KPDSampleImage.cpp" />
+    <ClCompile Include="KPFilterPreDialog.cpp" />
+    <ClCompile Include="KPGraphicsScene.cpp" />
+    <ClCompile Include="KPHistoView.cpp" />
+    <ClCompile Include="KPImage.cpp" />
+    <ClCompile Include="KPImageSelector.cpp" />
+    <ClCompile Include="KPImageView.cpp" />
+    <ClCompile Include="KPMagnifier.cpp" />
+    <ClCompile Include="KPProcessingWindow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui" />
+    <QtUic Include="KPDSampleImage.ui" />
+    <QtUic Include="KPFilterPreDialog.ui" />
+    <QtUic Include="KPHistoView.ui" />
+    <QtUic Include="KPImageSelector.ui" />
+    <QtUic Include="KPImageView.ui" />
+    <QtUic Include="KPMagnifier.ui" />
+    <QtUic Include="KPProcessingWindow.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="KomischesCAIPProjekt.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="HistWidget.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="ImProc.h" />
+    <QtMoc Include="KPGraphicsScene.h" />
+    <QtMoc Include="KPDSampleImage.h" />
+    <QtMoc Include="KPFilterPreDialog.h" />
+    <QtMoc Include="KPHistoView.h" />
+    <ClInclude Include="KPImage.h" />
+    <QtMoc Include="KPImageView.h" />
+    <QtMoc Include="KPProcessingWindow.h" />
+    <QtMoc Include="KPMagnifier.h" />
+    <ClInclude Include="PerlinNoise.h" />
+    <ClInclude Include="Tools.h" />
+    <QtMoc Include="KPImageSelector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
