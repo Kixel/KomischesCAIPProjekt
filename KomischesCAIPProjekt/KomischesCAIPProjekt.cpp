@@ -1,5 +1,6 @@
 ﻿#include "KomischesCAIPProjekt.h"
 
+
 KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
 	: QMainWindow(parent), activeM(-1), M(), V(), B(), viewmapper(this), buttonmapper(this), doBenchmark(true),
 	  links(""), rechts("\u23f1\ufe0f") {
@@ -277,7 +278,9 @@ void KomischesCAIPProjekt::closeEvent(QCloseEvent* event) {
 }
 
 void KomischesCAIPProjekt::on_actionShow_Histogram_triggered() {
-	// TODO add histogramm function
+	KPHistoView* kph = new KPHistoView(*M.getImage(activeM));
+	kph->show();
+	kph->fit();
 }
 
 void KomischesCAIPProjekt::on_actionInvert_triggered() {

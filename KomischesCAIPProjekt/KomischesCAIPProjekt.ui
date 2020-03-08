@@ -135,7 +135,7 @@
    </widget>
    <widget class="QMenu" name="menuOperations">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="title">
      <string>Operations</string>
@@ -145,6 +145,7 @@
       <string>Filter</string>
      </property>
      <addaction name="actionMean"/>
+     <addaction name="actionMean_Separated"/>
      <addaction name="actionMedian"/>
      <addaction name="actionGauss"/>
      <addaction name="actionEdge"/>
@@ -257,7 +258,7 @@
   </action>
   <action name="actionShow_Histogram">
    <property name="text">
-    <string>Gray-Histogram</string>
+    <string>Histogram</string>
    </property>
   </action>
   <action name="actionMean">
@@ -280,7 +281,7 @@
   </action>
   <action name="actionEdge">
    <property name="text">
-    <string>Edge</string>
+    <string>Edge (Sobel)</string>
    </property>
   </action>
   <action name="actionRandom">
@@ -470,6 +471,11 @@
   <action name="actionGradient">
    <property name="text">
     <string>Gradient</string>
+   </property>
+  </action>
+  <action name="actionMean_Separated">
+   <property name="text">
+    <string>Mean Separated</string>
    </property>
   </action>
  </widget>

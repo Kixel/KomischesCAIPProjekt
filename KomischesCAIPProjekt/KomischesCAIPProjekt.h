@@ -15,6 +15,7 @@
 #include <QCloseEvent>
 #include "KPProcessingWindow.h"
 #include "KPMagnifier.h"
+#include "KPHistoView.h"
 
 
 class KomischesCAIPProjekt : public QMainWindow

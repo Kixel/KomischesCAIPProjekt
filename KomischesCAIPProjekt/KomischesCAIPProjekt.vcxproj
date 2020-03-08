@@ -94,12 +94,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HistWidget.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="ImProc.cpp" />
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
     <ClCompile Include="KPDSampleImage.cpp" />
     <ClCompile Include="KPFilterPreDialog.cpp" />
     <ClCompile Include="KPGraphicsScene.cpp" />
+    <ClCompile Include="KPHistoView.cpp" />
     <ClCompile Include="KPImage.cpp" />
     <ClCompile Include="KPImageSelector.cpp" />
     <ClCompile Include="KPImageView.cpp" />
@@ -116,6 +118,7 @@
     <QtUic Include="KomischesCAIPProjekt.ui" />
     <QtUic Include="KPDSampleImage.ui" />
     <QtUic Include="KPFilterPreDialog.ui" />
+    <QtUic Include="KPHistoView.ui" />
     <QtUic Include="KPImageSelector.ui" />
     <QtUic Include="KPImageView.ui" />
     <QtUic Include="KPMagnifier.ui" />
@@ -125,11 +128,13 @@
     <QtRcc Include="KomischesCAIPProjekt.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="HistWidget.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="ImProc.h" />
     <QtMoc Include="KPGraphicsScene.h" />
     <QtMoc Include="KPDSampleImage.h" />
     <QtMoc Include="KPFilterPreDialog.h" />
+    <QtMoc Include="KPHistoView.h" />
     <ClInclude Include="KPImage.h" />
     <QtMoc Include="KPImageView.h" />
     <QtMoc Include="KPProcessingWindow.h" />

@@ -73,6 +73,12 @@
     <ClCompile Include="KPProcessingWindow.cpp">
       <Filter>Source Files\View</Filter>
     </ClCompile>
+    <ClCompile Include="KPHistoView.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="HistWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KomischesCAIPProjekt.h">
@@ -99,6 +105,12 @@
     <QtMoc Include="KPProcessingWindow.h">
       <Filter>Header Files\View</Filter>
     </QtMoc>
+    <QtMoc Include="KPHistoView.h">
+      <Filter>Header Files\View</Filter>
+    </QtMoc>
+    <QtMoc Include="HistWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui">
@@ -120,6 +132,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="KPMagnifier.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="KPHistoView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
