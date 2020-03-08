@@ -27,6 +27,8 @@ public:
 	static KPImage* filter(KPImage* O, Mat mask, int maskcenterx, int maskcentery, int outofbounds = replicate);
 	static vector<int>* grayhisto(KPImage* O);
 	static vector<vector<int>>* colorhisto(KPImage* O);
+	static KPImage* filter_custom(KPImage* O, KPProcessingWindow* kpp);
+
 
 	//Filtering
 	static KPImage* filter_mean(KPImage* O, KPProcessingWindow* kpp);

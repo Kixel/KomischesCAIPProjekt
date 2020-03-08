@@ -474,10 +474,40 @@ void KomischesCAIPProjekt::on_actionEdge_triggered() {
 
 void KomischesCAIPProjekt::on_actionRandom_triggered() {
 	// TODO random filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPFilterPreDialog fpd(this);
+	int a = fpd.exec();
+	if (!a) return;
+	int aW = fpd.getW();
+	int aH = fpd.getH();
+	cout << aW << " " << aH << endl;
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_custom, M.getImage(activeM), this);
+	proc->setup("Filter custom (random)", false, false, false, false, false, false, false, false, false, true, true);
+	proc->setupTable(aW, aH, true);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
+
 }
 
 void KomischesCAIPProjekt::on_actionCustom_triggered() {
 	// TODO custom filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPFilterPreDialog fpd(this);
+	int a = fpd.exec();
+	if (!a) return;
+	int aW = fpd.getW();
+	int aH = fpd.getH();
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_custom, M.getImage(activeM), this);
+	proc->setup("Filter custom", false, false, false, false, false, false, false, false, false, true, true);
+	proc->setupTable(aW, aH, false);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionErode_triggered() {

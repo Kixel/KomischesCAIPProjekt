@@ -2,7 +2,7 @@
 #include <iostream>
 
 KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWindow*), KPImage* original, QWidget* parent, bool slowoperation)
-	: QDialog(parent), Worker(Func), exitstate(-1)
+	: QDialog(parent), Worker(Func), exitstate(-1), tablex(0), tabley(0)
 {
 	this->orig = original;
 	this->preview = new KPImage(*this->orig);
@@ -67,7 +67,7 @@ void KPProcessingWindow::updatePreview() {
 
 void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner12, bool needsSpinner34, 
 	bool needsDouble, bool needsSpinner5, bool needsSlider1, bool needsSlider2, bool needscombo, 
-	bool needsmorph, bool needsborder) {
+	bool needsmorph, bool needsborder, bool needsmatrix) {
 	ui.labelTitle->setText(QString(title.c_str()));
 	if (!needslabels) {
 		ui.w_info12->hide();
@@ -106,6 +106,9 @@ void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner
 		ui.w_morph->show();
 		ui.label_12->hide();
 		ui.combo_shape->hide();
+	}
+	if (!needsmatrix) {
+		ui.groupBox_3->hide();
 	}
 }
 
@@ -160,6 +163,28 @@ void KPProcessingWindow::setDoublePrecision(double a) {
 	ui.doubleSpinBox->setSingleStep(a);
 }
 
+void KPProcessingWindow::setupTable(int x, int y, bool random) {
+	tablex = x;
+	tabley = y;
+	table.reserve(y);
+	QGridLayout* ql = new QGridLayout(ui.groupBox_3);
+	for (int yy = 0; yy < y; yy++) {
+		vector<QSpinBox*> td;
+		td.reserve(x);
+		for (int xx = 0; xx < x; xx++) {
+			QSpinBox* nq = new QSpinBox();
+			nq->setRange(-100, 100);
+			if (random) {
+				nq->setValue(rand()%200-100);
+			} else {
+				nq->setValue(0);
+			}
+			td.push_back(nq);
+		}
+		table.push_back(td);
+	}
+}
+
 int KPProcessingWindow::getInt1() {
 	return ui.spinBox->value();
 }
@@ -194,6 +219,19 @@ int KPProcessingWindow::getSlider2() {
 
 int KPProcessingWindow::getCombo() {
 	return ui.comboBox->currentIndex();
+}
+
+int KPProcessingWindow::getIntAt(int x, int y) {
+	if (x < 0 || x > tablex || y < 0 || y > tabley) return 0;
+	return table[y][x]->value();
+}
+
+int KPProcessingWindow::getMatW() {
+	return tablex;
+}
+
+int KPProcessingWindow::getMatH() {
+	return tabley;
 }
 
 void KPProcessingWindow::resizeEvent(QResizeEvent* event) {

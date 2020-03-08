@@ -62,6 +62,27 @@ vector<vector<int>>* ImProc::colorhisto(KPImage* O) {
 	return out;
 }
 
+KPImage* ImProc::filter_custom(KPImage* O, KPProcessingWindow* kpp) {
+	int maskw = kpp->getMatW();
+	int maskh = kpp->getMatH();
+	if (maskw <= 0) maskw = 1;
+	if (maskh <= 0) maskh = 1;
+	cout << maskw << " " << maskh << endl;
+	Mat mask(maskw, maskh, CV_16FC1);
+	for (int r = 0; r < maskw; r++) {
+		for (int c = 0; c < maskh; c++) {
+			mask.at<float>(r, c) = kpp->getIntAt(r, c);
+		}
+	}
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	int bordertype = kpp->getBordertype();
+	filter2D(in, *out, -1, mask, Point(-1, -1), 0, bordertype);
+
+	KPImage* R = new KPImage(out);
+	return R;
+}
+
 KPImage* ImProc::filter_mean(KPImage* O, KPProcessingWindow* kpp) {
 	cout << "startng manual filter" << endl;
 	QImage& source = O->getQ();

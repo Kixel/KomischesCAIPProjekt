@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1057</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,231 +98,91 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="optionsbox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>Options</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+    <widget class="QWidget" name="widget_8" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_14">
       <item>
-       <widget class="QWidget" name="w_info12" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Original Width</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Original Height</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Custom Matrix</string>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="w_spinner12" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
+       <widget class="QGroupBox" name="optionsbox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Options</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>First X-Coordinate / New Width / Lower Gray</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox">
-           <property name="value">
-            <number>1</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>First Y-Coordinate / New Height / Higher Gray</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox_2">
-           <property name="value">
-            <number>99</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_spinner34" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Second X-Coordinate</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox_3">
-           <property name="value">
-            <number>1</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Second Y-Coordinate</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox_4">
-           <property name="value">
-            <number>1</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_doublebox1" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="widget_2" native="true">
-           <layout class="QGridLayout" name="gridLayout_6">
+          <widget class="QWidget" name="w_info12" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <property name="leftMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_3">
+            <item>
+             <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>Angle / Gamma / Correctionvalue</string>
+               <string>Original Width</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Original Height</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
              </widget>
             </item>
@@ -330,174 +190,79 @@
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="widget" native="true">
-           <layout class="QGridLayout" name="gridLayout_5">
+          <widget class="QWidget" name="w_spinner12" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
             <property name="leftMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QDoubleSpinBox" name="doubleSpinBox">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>First X-Coordinate / New Width / Lower Gray</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox">
               <property name="value">
-               <double>1.000000000000000</double>
+               <number>1</number>
               </property>
              </widget>
             </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="placeholder1" native="true">
-           <layout class="QGridLayout" name="gridLayout_3">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label">
+            <item>
+             <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Radius (px)</string>
+               <string>First Y-Coordinate / New Height / Higher Gray</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="placeholder2" native="true">
-           <layout class="QGridLayout" name="gridLayout_4">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QSpinBox" name="spinBox_5">
+            <item>
+             <widget class="QSpinBox" name="spinBox_2">
               <property name="value">
-               <number>3</number>
+               <number>99</number>
               </property>
              </widget>
             </item>
            </layout>
           </widget>
          </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_comboBox" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
          <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>Adaptive method</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>Mean</string>
+          <widget class="QWidget" name="w_spinner34" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <property name="spacing">
+             <number>6</number>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Gaussian</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="widget_4" native="true"/>
-         </item>
-         <item>
-          <widget class="QWidget" name="widget_5" native="true"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_morph" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="widget_3" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_12">
             <property name="leftMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>3</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_12">
+             <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>Kernelshape</string>
+               <string>Second X-Coordinate</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -505,49 +270,16 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="combo_shape">
-              <property name="currentIndex">
-               <number>2</number>
+             <widget class="QSpinBox" name="spinBox_3">
+              <property name="value">
+               <number>1</number>
               </property>
-              <item>
-               <property name="text">
-                <string>Rectangular</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Cross</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Ellipse</string>
-               </property>
-              </item>
              </widget>
             </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="widget_7" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
             <item>
-             <widget class="QLabel" name="label_13">
+             <widget class="QLabel" name="label_9">
               <property name="text">
-               <string>Bordertype</string>
+               <string>Second Y-Coordinate</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -555,11 +287,211 @@
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widget_6" native="true">
-              <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <widget class="QSpinBox" name="spinBox_4">
+              <property name="value">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="w_doublebox1" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>3</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widget_2" native="true">
+              <layout class="QGridLayout" name="gridLayout_6">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Angle / Gamma / Correctionvalue</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget" native="true">
+              <layout class="QGridLayout" name="gridLayout_5">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                 <property name="value">
+                  <double>1.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="placeholder1" native="true">
+              <layout class="QGridLayout" name="gridLayout_3">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <property name="spacing">
-                <number>3</number>
+                <number>0</number>
                </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Radius (px)</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="placeholder2" native="true">
+              <layout class="QGridLayout" name="gridLayout_4">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QSpinBox" name="spinBox_5">
+                 <property name="value">
+                  <number>3</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="w_comboBox" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>3</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Adaptive method</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox">
+              <item>
+               <property name="text">
+                <string>Mean</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Gaussian</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_4" native="true"/>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_5" native="true"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="w_morph" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>3</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widget_3" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -573,42 +505,123 @@
                 <number>0</number>
                </property>
                <item>
-                <widget class="QComboBox" name="comboBorder">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Kernelshape</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="combo_shape">
                  <property name="currentIndex">
-                  <number>4</number>
+                  <number>2</number>
                  </property>
                  <item>
                   <property name="text">
-                   <string>Constant value</string>
+                   <string>Rectangular</string>
                   </property>
                  </item>
                  <item>
                   <property name="text">
-                   <string>Replicate</string>
+                   <string>Cross</string>
                   </property>
                  </item>
                  <item>
                   <property name="text">
-                   <string>Reflect</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Wrap</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Reflect (continuous)</string>
+                   <string>Ellipse</string>
                   </property>
                  </item>
                 </widget>
                </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_7" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item>
-                <widget class="QSpinBox" name="spinnerBorder">
-                 <property name="maximum">
-                  <number>255</number>
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Bordertype</string>
                  </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_6" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <property name="spacing">
+                   <number>3</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QComboBox" name="comboBorder">
+                    <property name="currentIndex">
+                     <number>4</number>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Constant value</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Replicate</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Reflect</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Wrap</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Reflect (continuous)</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinnerBorder">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
               </layout>
@@ -617,151 +630,151 @@
            </layout>
           </widget>
          </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_slider1" native="true">
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
          <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Threshold (1) &lt;auto value&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
+          <widget class="QWidget" name="w_slider1" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>3</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Threshold (1) &lt;auto value&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_3">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="horizontalSlider">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="tickPosition">
+                 <enum>QSlider::TicksBelow</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>5</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_3">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>30</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="horizontalSlider">
-             <property name="maximum">
-              <number>255</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::TicksBelow</enum>
-             </property>
-             <property name="tickInterval">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="w_slider2" native="true">
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_10">
-           <property name="text">
-            <string>Threshold (2) &lt;auto value&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
+          <widget class="QWidget" name="w_slider2" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>3</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <property name="bottomMargin">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Threshold (2) &lt;auto value&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_4">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSlider" name="horizontalSlider_2">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="tickPosition">
+                 <enum>QSlider::TicksBelow</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>5</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_4">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="horizontalSlider_2">
-             <property name="maximum">
-              <number>255</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::TicksBelow</enum>
-             </property>
-             <property name="tickInterval">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </item>
         </layout>
        </widget>

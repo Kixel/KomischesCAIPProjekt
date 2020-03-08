@@ -21,7 +21,8 @@ public:
 
 	void setup(string title, bool needslabels = false, bool needsSpinner12 = false, bool needsSpinner34 = false,
 		bool needsDouble = false, bool needsSpinner5 = false, bool needsSlider1 = false,
-		bool needsSlider2 = false, bool needscombo = false, bool needsmorph = false, bool needsborder = false);
+		bool needsSlider2 = false, bool needscombo = false, bool needsmorph = false, 
+		bool needsborder = false, bool needsmatrix = false);
 	void setupLabels(string leftW, string rightH);
 	void setupSpinner12(string leftL, int leftV, int leftmin, int leftmax,
 		string rightL, int rightV, int rightmin, int rightmax);
@@ -32,6 +33,7 @@ public:
 	void setupSlider1(string T, int V);
 	void setupSlider2(string T, int V);
 	void setDoublePrecision(double a);
+	void setupTable(int x, int y, bool random);
 
 	int getInt1();
 	int getInt2();
@@ -42,6 +44,10 @@ public:
 	int getSlider1();
 	int getSlider2();
 	int getCombo();
+	int getIntAt(int x, int y);
+
+	int getMatW();
+	int getMatH();
 
 	int getShape();
 	int getBordertype();
@@ -75,8 +81,8 @@ private:
 	KPImage* (*Worker)(KPImage*, KPProcessingWindow*);
 
 	int exitstate;
-
-
+	int tablex, tabley;
+	vector<vector<QSpinBox*>> table;
 	void closeEvent(QCloseEvent* event);
 
 signals:

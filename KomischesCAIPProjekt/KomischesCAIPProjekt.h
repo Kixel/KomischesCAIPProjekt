@@ -16,7 +16,7 @@
 #include "KPProcessingWindow.h"
 #include "KPMagnifier.h"
 #include "KPHistoView.h"
-
+#include "KPFilterPreDialog.h"
 
 class KomischesCAIPProjekt : public QMainWindow
 {

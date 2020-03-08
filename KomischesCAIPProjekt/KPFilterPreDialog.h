@@ -11,6 +11,10 @@ public:
 	KPFilterPreDialog(QWidget *parent = Q_NULLPTR);
 	~KPFilterPreDialog();
 
+	int getW();
+	int getH();
+		
+
 private:
 	Ui::KPFilterPreDialog ui;
 };
