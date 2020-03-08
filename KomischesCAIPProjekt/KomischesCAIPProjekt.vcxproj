@@ -76,7 +76,7 @@
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world412.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world412d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -98,6 +98,7 @@
     <ClCompile Include="ImProc.cpp" />
     <ClCompile Include="KomischesCAIPProjekt.cpp" />
     <ClCompile Include="KPDSampleImage.cpp" />
+    <ClCompile Include="KPFilterPreDialog.cpp" />
     <ClCompile Include="KPGraphicsScene.cpp" />
     <ClCompile Include="KPImage.cpp" />
     <ClCompile Include="KPImageSelector.cpp" />
@@ -113,6 +114,7 @@
   <ItemGroup>
     <QtUic Include="KomischesCAIPProjekt.ui" />
     <QtUic Include="KPDSampleImage.ui" />
+    <QtUic Include="KPFilterPreDialog.ui" />
     <QtUic Include="KPImageSelector.ui" />
     <QtUic Include="KPImageView.ui" />
     <QtUic Include="KPProcessingWindow.ui" />
@@ -125,6 +127,7 @@
     <ClInclude Include="ImProc.h" />
     <QtMoc Include="KPGraphicsScene.h" />
     <QtMoc Include="KPDSampleImage.h" />
+    <QtMoc Include="KPFilterPreDialog.h" />
     <ClInclude Include="KPImage.h" />
     <QtMoc Include="KPImageView.h" />
     <QtMoc Include="KPProcessingWindow.h" />

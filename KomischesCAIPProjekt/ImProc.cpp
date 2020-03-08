@@ -54,20 +54,24 @@ KPImage* ImProc::convert2Gray(KPImage* O, KPProcessingWindow* kpp) {
 }
 
 KPImage* ImProc::rotate(KPImage* O, KPProcessingWindow* kpp) {
-	/*
-	Mat src = Mat(O->getM());
-	double angle = kpp->getDouble1();
+	
+	//double angle = kpp->getDouble1();
+	/*Mat src(O->getM());
+	//cout << src.type() << endl;
 
 	Point2f center((src.cols - 1) / 2.0, (src.rows - 1) / 2.0);
+	cout << center.x << "|" << center.y << endl;
 	Mat rot = cv::getRotationMatrix2D(center, angle, 1.0);
 	Rect2f bbox = cv::RotatedRect(cv::Point2f(), src.size(), angle).boundingRect2f();
 	rot.at<double>(0, 2) += bbox.width / 2.0 - src.cols / 2.0;
 	rot.at<double>(1, 2) += bbox.height / 2.0 - src.rows / 2.0;
-
-	Mat dst;
-	warpAffine(src, dst, rot, bbox.size());
-	KPImage* R = new KPImage(dst);
-	R->setName(O->getName() + string(" rotated: ") + to_string(angle));*/
+	
+	Mat* dst = new Mat(src.rows, src.cols, src.type());
+	cout << dst->type() << endl;
+	warpAffine(src, *dst, rot, bbox.size()); // one problem
+	KPImage* R = new KPImage(dst);*/
+	//R->setName(O->getName() + string(" rotated: ") + to_string(angle));*/
+	//imshow("", *dst); 
 	QTransform tm;
 	tm.rotate(kpp->getDouble1());
 	KPImage* R = new KPImage(O->getQ().transformed(tm));
@@ -81,20 +85,124 @@ KPImage* ImProc::resize(KPImage* O, KPProcessingWindow* kpp) {
 	return R;
 }
 
-KPImage* ImProc::erode(KPImage* O, Mat structure) {
-	return nullptr;
+KPImage* ImProc::erode(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	
+	//needed elements:
+	/*
+	kernel:
+		shape (int->combobox)
+		Size (int/int->2spinner) exists
+	iterations (int->spinner) exists
+	bordertype (int->combobox)
+	*/
+	int shape = kpp->getShape();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int iterations = kpp->getInt5();
+	int bordert = kpp->getBordertype();
+	int borderv = kpp->getBordervalue();
+	morphologyEx(in, *out, MORPH_ERODE, getStructuringElement(shape, Size(size1, size2)), Point(-1, -1), iterations, bordert, borderv);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" eroded"));
+	return R;
 }
 
-KPImage* ImProc::dilate(KPImage* O, Mat structure) {
-	return nullptr;
+KPImage* ImProc::dilate(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+
+	//needed elements:
+	/*
+	kernel:
+		shape (int->combobox)
+		Size (int/int->2spinner) exists
+	iterations (int->spinner) exists
+	bordertype (int->combobox)
+	*/
+	int shape = kpp->getShape();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int iterations = kpp->getInt5();
+	int bordert = kpp->getBordertype();
+	int borderv = kpp->getBordervalue();
+	morphologyEx(in, *out, MORPH_DILATE, getStructuringElement(shape, Size(size1, size2)), Point(-1, -1), iterations, bordert, borderv);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" dilated"));
+	return R;
 }
 
-KPImage* ImProc::open(KPImage* O, Mat structure) {
-	return nullptr;
+KPImage* ImProc::open(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+
+	//needed elements:
+	/*
+	kernel:
+		shape (int->combobox)
+		Size (int/int->2spinner) exists
+	iterations (int->spinner) exists
+	bordertype (int->combobox)
+	*/
+	int shape = kpp->getShape();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int iterations = kpp->getInt5();
+	int bordert = kpp->getBordertype();
+	int borderv = kpp->getBordervalue();
+	morphologyEx(in, *out, MORPH_OPEN, getStructuringElement(shape, Size(size1, size2)), Point(-1, -1), iterations, bordert, borderv);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" opened"));
+	return R;
 }
 
-KPImage* ImProc::close(KPImage* O, Mat structure) {
-	return nullptr;
+KPImage* ImProc::close(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+
+	//needed elements:
+	/*
+	kernel:
+		shape (int->combobox)
+		Size (int/int->2spinner) exists
+	iterations (int->spinner) exists
+	bordertype (int->combobox)
+	*/
+	int shape = kpp->getShape();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int iterations = kpp->getInt5();
+	int bordert = kpp->getBordertype();
+	int borderv = kpp->getBordervalue();
+	morphologyEx(in, *out, MORPH_CLOSE, getStructuringElement(shape, Size(size1, size2)), Point(-1, -1), iterations, bordert, borderv);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" closed"));
+	return R;
+}
+
+KPImage* ImProc::morphgradient(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+
+	//needed elements:
+	/*
+	kernel:
+		shape (int->combobox)
+		Size (int/int->2spinner) exists
+	iterations (int->spinner) exists
+	bordertype (int->combobox)
+	*/
+	int shape = kpp->getShape();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int iterations = kpp->getInt5();
+	int bordert = kpp->getBordertype();
+	int borderv = kpp->getBordervalue();
+	morphologyEx(in, *out, MORPH_GRADIENT, getStructuringElement(shape, Size(size1, size2)), Point(-1, -1), iterations, bordert, borderv);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" gradient"));
+	return R;
 }
 
 KPImage* ImProc::create_Gradientfast(int w, int h, bool toptodown, bool invert) {
@@ -214,7 +322,56 @@ KPImage* ImProc::create_Grayperlin(int w, int h, unsigned int seed, double zoomf
 
 int ImProc::otsu(KPImage* im) {
 	// TODO otsu
-	return 0;
+	long int totalpixels = im->getWidth() * im->getHeight();
+	vector<int> histogramI = *ImProc::grayhisto(im);
+	//Making mean tables
+	int K = histogramI.size();
+	double n0 = 0, s0 = 0;
+	vector<double> my0, my1;
+	for (int i = 0; i < K; i++) {
+		my0.push_back(0.0);
+		my1.push_back(0.0);
+	}
+	for (int q = 0; q < K - 1; q++) {
+		n0 += histogramI[q];
+		s0 += q * histogramI[q];
+		if (n0 > 0) { 
+			my0[q] = s0 / n0; 
+		} else {
+			my0[q] = -1;
+		}
+	}
+	double N = n0;
+	double n1 = 0;
+	double s1 = 0;
+	my1[K - 1] = 0;
+	for (int q = K - 2; q >= 0; q--) {
+		n1 += histogramI[q + 1];
+		s1 += (q + 1) * histogramI[q + 1];
+		if (n1 > 0) {
+			my1[q] = s1 / n1;
+		} else {
+			my1[q] = -1;
+		}
+	}
+	//Generating otsu
+	double o2bmax = 0;
+	double qmax = -1;
+	n0 = 0;
+	double MN = N;
+	for (int q = 0; q <= K - 2; q++) {
+		n0 += histogramI[q];
+		n1 = MN - n0;
+		if ((n0 > 0) && (n1 > 0)) {
+			double o2b = (1 / pow(MN, 2)) * n0 * n1 * pow((my0[q] - my1[q]), 2);
+			if (o2b > o2bmax) {
+				o2bmax = o2b;
+				qmax = q;
+			}
+		}
+	}
+	cout << "qmax" << qmax << endl;
+	return qmax;
 }
 
 KPImage* ImProc::invert(KPImage* O, KPProcessingWindow* kpp) {
@@ -327,5 +484,16 @@ KPImage* ImProc::binarise2(KPImage* O, KPProcessingWindow* kpp) {
 }
 
 KPImage* ImProc::adaptthresh(KPImage* O, KPProcessingWindow* kpp) {
-	return nullptr;
+	int masksi = (kpp->getInt5())*2+1;
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	double constan = kpp->getDouble1();
+	int meth = kpp->getCombo();
+
+	adaptiveThreshold(in, *out, 255.0, meth, THRESH_BINARY, masksi, constan);
+
+	//adaptiveThreshold(in, *out, 255, method, THRESH_BINARY, masksize, constant);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" adaptive binarised"));
+	return R;
 }

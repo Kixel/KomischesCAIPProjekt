@@ -40,6 +40,8 @@ private:
 	void removeImage(int ID);
 	void disenableItems();
 
+	bool notgray();
+
 public slots:
 	void windowactivated(int view);
 	void selectorclicked(int n);
@@ -86,6 +88,7 @@ private slots:
 		void on_actionOpen_2_triggered();
 		void on_actionDilate_triggered();
 		void on_actionClose_triggered();
+		void on_actionGradient_triggered();
 
 	
 	//Extras Menu

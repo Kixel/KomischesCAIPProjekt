@@ -62,6 +62,19 @@ void KomischesCAIPProjekt::disenableItems() {
 	ui.actionMagnifier->setEnabled(t);
 }
 
+bool KomischesCAIPProjekt::notgray() {
+	QMessageBox::StandardButton qb = QMessageBox::question(this, QString("Only grayscale supported!"), QString("Only grayscale images are supported for this operation. Do you want to convert the current image to grayscale and continue?"));
+	if (qb == QMessageBox::StandardButton::Yes) {
+		KPImage* r = ImProc::convert2Gray(M.getImage(activeM), nullptr);
+		int nid = M.addImage(r, r->getName());
+		this->activeM = nid;
+		this->addImage(nid, r);
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void KomischesCAIPProjekt::selectorclicked(int n) {
 	cout << "Selector " << n << " clicked" << endl;
 	this->activeM = n;
@@ -247,7 +260,7 @@ void KomischesCAIPProjekt::on_actionResize_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionRotate_triggered() {
-	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::rotate, M.getImage(activeM), this);
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::rotate, M.getImage(activeM), this, true);
 	proc->setup("Rotate image", false, false, false, true, false, false, false);
 	proc->setupDouble("Angle", 0, 0, 360);
 	proc->show();
@@ -264,7 +277,7 @@ void KomischesCAIPProjekt::on_actionConvert_to_Grayscale_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionGammacorrection_triggered() {
-	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::gamma, M.getImage(activeM), this);
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::gamma, M.getImage(activeM), this, true);
 	proc->setup("Gamma correction", false, false, false, true, false, false, false);
 	proc->setDoublePrecision(0.05);
 	proc->setupDouble("Gamma", 1, 0, 100);
@@ -276,10 +289,9 @@ void KomischesCAIPProjekt::on_actionGammacorrection_triggered() {
 
 void KomischesCAIPProjekt::on_actionContrastcorrection_triggered() {
 	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
-		// TODO error message
-		return;
+		if (!notgray()) return;
 	}
-	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::contrast, M.getImage(activeM), this);
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::contrast, M.getImage(activeM), this, true);
 	proc->setup("Contrast correction", false, true, false, false, false, false, false);
 	proc->setupSpinner12("Minimum grayvalue", 0, 0, 255, "Maximum grayvalue", 255, 0, 255);
 	proc->show();
@@ -289,12 +301,12 @@ void KomischesCAIPProjekt::on_actionContrastcorrection_triggered() {
 
 void KomischesCAIPProjekt::on_actionBinarise_triggered() {
 	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
-		// TODO error message
-		return;
+		if (!notgray()) return;
 	}
 	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::binarise, M.getImage(activeM), this);
 	proc->setup("Binarise", false, false, false, false, false, true, false);
 	int ot = ImProc::otsu(M.getImage(activeM));
+	cout << "otsu" << ot << endl;
 	proc->setupSlider1(string("Threshold (default:") + to_string(ot) + ")", ot);
 	proc->show();
 	proc->fitToCurrent();
@@ -303,8 +315,7 @@ void KomischesCAIPProjekt::on_actionBinarise_triggered() {
 
 void KomischesCAIPProjekt::on_actionBinarise_range_triggered() {
 	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
-		// TODO error message
-		return;
+		if (!notgray()) return;
 	}
 	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::binarise2, M.getImage(activeM), this);
 	proc->setup("Binarise with 2 thresholds", false, false, false, false, false, true, true);
@@ -317,7 +328,16 @@ void KomischesCAIPProjekt::on_actionBinarise_range_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionAdaptive_Binarise_triggered() {
-	// TODO adaptive bin
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::adaptthresh, M.getImage(activeM), this);
+	proc->setup("Adaptive binarise", false, false, false, true, true, false, false, true);
+	proc->setupDouble("Threshold modifier", 10, -10, 50);
+	proc->setupSpinner5("Block radius", 7, 1, 251);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionMean_triggered() {
@@ -345,19 +365,68 @@ void KomischesCAIPProjekt::on_actionCustom_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionErode_triggered() {
-	// TODO erode
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::erode, M.getImage(activeM), this);
+	proc->setup("Erosion", false, true, false, false, true, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupSpinner5("Iterations", 1, 1, 10);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionOpen_2_triggered() {
-	// TODO opening
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::open, M.getImage(activeM), this);
+	proc->setup("Opening", false, true, false, false, true, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupSpinner5("Iterations", 1, 1, 10);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionDilate_triggered() {
-	// TODO dilate
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::dilate, M.getImage(activeM), this);
+	proc->setup("Dilation", false, true, false, false, true, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupSpinner5("Iterations", 1, 1, 10);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionClose_triggered() {
-	// TODO closing
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::close, M.getImage(activeM), this);
+	proc->setup("Closing", false, true, false, false, true, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupSpinner5("Iterations", 1, 1, 10);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
+}
+
+void KomischesCAIPProjekt::on_actionGradient_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::morphgradient, M.getImage(activeM), this);
+	proc->setup("Gradient", false, true, false, false, true, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupSpinner5("Iterations", 1, 1, 10);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionBenchmark_triggered() {

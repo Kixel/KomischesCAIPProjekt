@@ -14,11 +14,6 @@ public:
 	static int Type_CV2Q(int t);
 	static bool PathValid(string p);
 
-	//Stuff for random numbers
-	/*static random_device rd;
-	static mt19937_64 eng;
-	static uniform_int_distribution<unsigned int> distr;*/
-
 	static unsigned int GetRandomUint();
 
 	//Benchmark stuff

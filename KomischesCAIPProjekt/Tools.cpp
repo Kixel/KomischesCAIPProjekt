@@ -3,9 +3,6 @@
 #include <opencv2/core/core.hpp>
 
 uint64_t Tools::benchstart = 0;
-//random_device Tools::rd;
-//mt19937_64 Tools::eng(rd());
-//uniform_int_distribution<unsigned int> Tools::distr;
 
 int Tools::Type_Q2CV(int t) {
 	switch (t) {
@@ -31,16 +28,7 @@ bool Tools::PathValid(string p) {
 }
 
 unsigned int Tools::GetRandomUint() {
-
-	//return Tools::distr(Tools::eng);
-	/*unsigned long long r = 0;
-
-	for (int i = 0; i < 5; ++i) {
-		r = (r << 15) | (rand() & 0x7FFF);
-	}
-
-	return (unsigned int)(r & 0xFFFFFFFFFFFFFFFFULL);*/
-	return rand() % 429496729;
+	return rand() % 65536;
 }
 
 uint64_t Tools::systemtime() {

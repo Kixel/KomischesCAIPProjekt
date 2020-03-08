@@ -1,6 +1,9 @@
 #pragma once
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core/mat.hpp>
+#include <opencv2/opencv.hpp>
 #include "KPImage.h"
 #include "PerlinNoise.h"
 #include <iostream>
@@ -27,10 +30,11 @@ public:
 	static KPImage* convert2Gray(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* rotate  (KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* resize	(KPImage* O, KPProcessingWindow* kpp);
-	static KPImage* erode	(KPImage* O, Mat structure);
-	static KPImage* dilate	(KPImage* O, Mat structure);
-	static KPImage* open	(KPImage* O, Mat structure);
-	static KPImage* close	(KPImage* O, Mat structure);
+	static KPImage* erode   (KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* dilate	(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* open	(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* close	(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* morphgradient(KPImage* O, KPProcessingWindow* kpp);
 
 	//Image creation
 	static KPImage* create_Gradientfast(int w, int h, bool toptodown, bool invert);

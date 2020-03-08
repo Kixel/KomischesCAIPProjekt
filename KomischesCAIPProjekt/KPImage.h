@@ -20,7 +20,7 @@ private:
 
 public:
 	KPImage();
-	KPImage(Mat& m);
+	KPImage(Mat* m);
 	KPImage(QImage& data);
 	KPImage(const string name);
 	KPImage(int w, int h);
@@ -28,7 +28,7 @@ public:
 
 	QImage& getQ();
 	Mat getM();
-	void setM(Mat& m);
+	void setM(Mat* m);
 	void setName(const string n);
 	string getName();
 	int getWidth();

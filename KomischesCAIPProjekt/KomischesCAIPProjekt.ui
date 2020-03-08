@@ -117,7 +117,7 @@
    </widget>
    <widget class="QMenu" name="menuOperations">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>Operations</string>
@@ -141,6 +141,7 @@
      <addaction name="actionOpen_2"/>
      <addaction name="actionDilate"/>
      <addaction name="actionClose"/>
+     <addaction name="actionGradient"/>
     </widget>
     <addaction name="actionShow_Histogram"/>
     <addaction name="separator"/>
@@ -446,6 +447,11 @@
   <action name="actionAdaptive_Binarise">
    <property name="text">
     <string>Adaptive Binarise</string>
+   </property>
+  </action>
+  <action name="actionGradient">
+   <property name="text">
+    <string>Gradient</string>
    </property>
   </action>
  </widget>

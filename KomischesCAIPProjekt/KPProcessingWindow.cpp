@@ -1,43 +1,42 @@
 #include "KPProcessingWindow.h"
 #include <iostream>
 
-KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWindow*), KPImage* original, QWidget* parent)
+KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWindow*), KPImage* original, QWidget* parent, bool slowoperation)
 	: QDialog(parent), Worker(Func), exitstate(-1)
 {
-	cout << 1;
 	this->orig = original;
-	cout << 2;
 	this->preview = new KPImage(*this->orig);
 	this->left = new QGraphicsScene();
 	this->right = new QGraphicsScene();
-	cout << 3;
 	ui.setupUi(this); 
-	cout << 4;
 	ui.qgv_original->setScene(left);
-	cout << 5;
 	ui.qgv_preview->setScene(right);
-	cout << 6;
-
 	left->clear();
-	cout << 1;
 	left->setSceneRect(orig->getQ().rect());
-	cout << 2;
 	left->addPixmap(QPixmap::fromImage(orig->getQ()));
-	cout << 7;
 	this->updatePreview();
-	cout << 8;
-	connect(ui.spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.spinBox_2, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.spinBox_3, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.spinBox_4, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.spinBox_5, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
-	connect(ui.horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	connect(ui.horizontalSlider_2, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-	cout << 9;
+	if (slowoperation) {
+		connect(ui.buttonRefresh, SIGNAL(clicked()), this, SLOT(updatePreview()));
+	} else {
+		ui.buttonRefresh->hide();
+		connect(ui.spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.spinBox_2, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.spinBox_3, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.spinBox_4, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.spinBox_5, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(updatePreview()));
+		connect(ui.horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.horizontalSlider_2, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updatePreview()));
+
+		connect(ui.comboBorder, SIGNAL(currentIndexChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.combo_shape, SIGNAL(currentIndexChanged(int)), this, SLOT(updatePreview()));
+		connect(ui.spinnerBorder, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+
+
+	}
 	connect(ui.buttonOk, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.buttonCancel, SIGNAL(clicked()), this, SLOT(abort()));
-	cout << 10;
 	this->setModal(true);
 	this->setWindowModality(Qt::WindowModality::ApplicationModal);
 }
@@ -64,7 +63,7 @@ void KPProcessingWindow::updatePreview() {
 	this->fitToCurrent();
 }
 
-void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner12, bool needsSpinner34, bool needsDouble, bool needsSpinner5, bool needsSlider1, bool needsSlider2) {
+void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner12, bool needsSpinner34, bool needsDouble, bool needsSpinner5, bool needsSlider1, bool needsSlider2, bool needscombo, bool needsmorph) {
 	ui.labelTitle->setText(QString(title.c_str()));
 	if (!needslabels) {
 		ui.w_info12->hide();
@@ -77,10 +76,10 @@ void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner
 	}
 	if (!needsSpinner5) {
 		ui.spinBox_5->hide();
-		ui.label_3->hide();
+		ui.label->hide();
 	}
 	if (!needsDouble) {
-		ui.label->hide();
+		ui.label_3->hide();
 		ui.doubleSpinBox->hide();
 	}
 	if (!needsSpinner5 && !needsDouble) {
@@ -91,6 +90,14 @@ void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner
 	}
 	if (!needsSlider2) {
 		ui.w_slider2->hide();
+	}
+	if (!needscombo) {
+		ui.w_comboBox->hide();
+	}
+	if (!needsmorph) {
+		ui.w_morph->hide();
+	} else {
+		ui.spinnerBorder->hide();
 	}
 }
 
@@ -118,13 +125,13 @@ void KPProcessingWindow::setupSpinner34(string leftL, int leftV, int leftmin, in
 }
 
 void KPProcessingWindow::setupSpinner5(string L, int V, int min, int max) {
-	ui.label_3->setText(QString(L.c_str()));
+	ui.label->setText(QString(L.c_str()));
 	ui.spinBox_5->setRange(min, max);
 	ui.spinBox_5->setValue(V);
 }
 
 void KPProcessingWindow::setupDouble(string L, double V, double min, double max) {
-	ui.label->setText(QString(L.c_str()));
+	ui.label_3->setText(QString(L.c_str()));
 	ui.doubleSpinBox->setRange(min, max);
 	ui.doubleSpinBox->setValue(V);
 }
@@ -177,6 +184,10 @@ int KPProcessingWindow::getSlider2() {
 	return ui.horizontalSlider_2->value();
 }
 
+int KPProcessingWindow::getCombo() {
+	return ui.comboBox->currentIndex();
+}
+
 void KPProcessingWindow::resizeEvent(QResizeEvent* event) {
 	QWidget::resizeEvent(event);
 	this->fitToCurrent();
@@ -210,6 +221,34 @@ void KPProcessingWindow::finish() {
 	emit finished(this);
 }
 
+void KPProcessingWindow::on_horizontalSlider_valueChanged() {
+	ui.lineEdit_3->setText(QString(to_string(ui.horizontalSlider->value()).c_str()));
+}
+
+void KPProcessingWindow::on_horizontalSlider_2_valueChanged() {
+	ui.lineEdit_4->setText(QString(to_string(ui.horizontalSlider_2->value()).c_str()));
+}
+
 void KPProcessingWindow::closeEvent(QCloseEvent* event) {
 	abort();
+}
+
+void KPProcessingWindow::on_comboBorder_currentIndexChanged(int i) {
+	if (i > 0) {
+		ui.spinnerBorder->hide();
+	} else {
+		ui.spinnerBorder->show();
+	}
+}
+
+int KPProcessingWindow::getShape() {
+	return ui.combo_shape->currentIndex();
+}
+
+int KPProcessingWindow::getBordertype() {
+	return ui.comboBorder->currentIndex();
+}
+
+int KPProcessingWindow::getBordervalue() {
+	return ui.spinnerBorder->value();
 }
