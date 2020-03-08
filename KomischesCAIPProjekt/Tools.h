@@ -4,12 +4,20 @@
 #include <random>
 #include <QMainWindow>
 #include <QStatusBar>
+#include "KPMagnifier.h"
+#include <QImage>
+//#include "KPImage.h"
 
 using namespace std;
 
 class Tools
 {
 public:
+
+	static KPMagnifier* magnifiq;
+	static void updateMagnifier(KPImage* im, int x, int y);
+
+
 	static int Type_Q2CV(int t);
 	static int Type_CV2Q(int t);
 	static bool PathValid(string p);

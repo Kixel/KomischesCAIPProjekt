@@ -5,6 +5,7 @@
 #include "KPImage.h"
 #include "KPGraphicsScene.h"
 #include <iostream>
+#include "Tools.h"
 
 class KPImageView : public QWidget
 {

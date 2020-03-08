@@ -14,6 +14,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include "KPProcessingWindow.h"
+#include "KPMagnifier.h"
 
 
 class KomischesCAIPProjekt : public QMainWindow
@@ -31,6 +32,8 @@ private:
 	int activeM;
 	map<int, KPImageView*> V;
 	map<int, KPImageSelector*> B;
+
+	//KPMagnifier mag;
 
 	QSignalMapper viewmapper, buttonmapper;
 

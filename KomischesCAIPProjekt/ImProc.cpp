@@ -392,6 +392,13 @@ KPImage* ImProc::crop(KPImage* O, KPProcessingWindow* kpp) {
 	return R;
 }
 
+KPImage* ImProc::crop(KPImage* O, int x, int y, int wi, int hi) {
+	KPImage* R = new KPImage(*O);
+	R->getQ() = R->getQ().copy(x, y, wi, hi);
+	R->setName(O->getName() + string(" cropped"));
+	return R;
+}
+
 KPImage* ImProc::gamma(KPImage* O, KPProcessingWindow* kpp) {
 	vector<int> precalc(256, 0);
 	for (int i = 0; i < 256; i++) {

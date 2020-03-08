@@ -55,6 +55,7 @@ void KPImageView::mouseHoverUpdater(int x, int y) {
 	}
 	this->ui.mousePositionLineEdit->setText(QString(pos.c_str()));
 	this->ui.hoverDataLineEdit->setText(QString(col.c_str()));
+	Tools::updateMagnifier(this->currentImage, x, y);
 }
 
 

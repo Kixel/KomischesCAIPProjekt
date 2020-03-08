@@ -1,8 +1,13 @@
 #include "Tools.h"
-#include <qimage.h>
 #include <opencv2/core/core.hpp>
 
 uint64_t Tools::benchstart = 0;
+KPMagnifier* Tools::magnifiq = nullptr;
+
+void Tools::updateMagnifier(KPImage* im, int x, int y) {
+	if (!Tools::magnifiq->isVisible()) return;
+	magnifiq->updateImage(im, x, y);
+}
 
 int Tools::Type_Q2CV(int t) {
 	switch (t) {

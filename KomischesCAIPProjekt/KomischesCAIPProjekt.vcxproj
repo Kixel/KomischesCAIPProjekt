@@ -103,6 +103,7 @@
     <ClCompile Include="KPImage.cpp" />
     <ClCompile Include="KPImageSelector.cpp" />
     <ClCompile Include="KPImageView.cpp" />
+    <ClCompile Include="KPMagnifier.cpp" />
     <ClCompile Include="KPProcessingWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
@@ -117,6 +118,7 @@
     <QtUic Include="KPFilterPreDialog.ui" />
     <QtUic Include="KPImageSelector.ui" />
     <QtUic Include="KPImageView.ui" />
+    <QtUic Include="KPMagnifier.ui" />
     <QtUic Include="KPProcessingWindow.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +133,7 @@
     <ClInclude Include="KPImage.h" />
     <QtMoc Include="KPImageView.h" />
     <QtMoc Include="KPProcessingWindow.h" />
+    <QtMoc Include="KPMagnifier.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Tools.h" />
     <QtMoc Include="KPImageSelector.h" />

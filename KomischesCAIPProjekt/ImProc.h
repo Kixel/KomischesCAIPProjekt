@@ -18,6 +18,7 @@ public:
 	//Image Processing custom
 	static KPImage* invert(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* crop(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* crop(KPImage* O, int x, int y, int wi, int hi);
 	static KPImage* gamma(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* contrast(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* binarise(KPImage* O, KPProcessingWindow* kpp);

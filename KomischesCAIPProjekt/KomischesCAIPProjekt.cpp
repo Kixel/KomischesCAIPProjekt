@@ -7,6 +7,7 @@ KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
 	cout << "viewmapper setup" << endl;
 	connect(&buttonmapper, SIGNAL(mapped(int)), this, SLOT(selectorclicked(int)));
 	cout << "buttonmapper setup" << endl;
+	Tools::magnifiq = new KPMagnifier();
 }
 
 void KomischesCAIPProjekt::changeImage(int ID, KPImage* im) {
@@ -49,6 +50,7 @@ void KomischesCAIPProjekt::removeImage(int ID) {
 	delete B[ID];
 	V.erase(ID);
 	B.erase(ID);
+	M.deleteImage(ID);
 	if(V.size() > 0) windowactivated(begin(V)->first);
 	disenableItems();
 }
@@ -59,7 +61,7 @@ void KomischesCAIPProjekt::disenableItems() {
 	ui.actionClose_Active->setEnabled(t);
 	ui.actionClose_All_Images->setEnabled(t);
 	ui.menuOperations->setEnabled(t);
-	ui.actionMagnifier->setEnabled(t);
+	//ui.actionMagnifier->setEnabled(t);
 }
 
 bool KomischesCAIPProjekt::notgray() {
@@ -434,7 +436,7 @@ void KomischesCAIPProjekt::on_actionBenchmark_triggered() {
 }
 
 void KomischesCAIPProjekt::on_actionMagnifier_triggered() {
-	// TODO magnifier
+	Tools::magnifiq->show();
 }
 
 void KomischesCAIPProjekt::inviewerclose(int id) {
