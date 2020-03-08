@@ -46,6 +46,22 @@ vector<int>* ImProc::grayhisto(KPImage* O) {
 	return out;
 }
 
+vector<vector<int>>* ImProc::colorhisto(KPImage* O) {
+	vector<vector<int>>* out = new vector<vector<int>>();
+	vector<int> r(256, 0), g(256, 0), b(256, 0);
+	for (int x = 0; x < O->getWidth(); x++) {
+		for (int y = 0; y < O->getHeight(); y++) {
+			r.at(qRed(O->getQ().pixel(x, y)))++;
+			g.at(qGreen(O->getQ().pixel(x, y)))++;
+			b.at(qBlue(O->getQ().pixel(x, y)))++;
+		}
+	}
+	out->push_back(r);
+	out->push_back(g);
+	out->push_back(b);
+	return out;
+}
+
 KPImage* ImProc::convert2Gray(KPImage* O, KPProcessingWindow* kpp) {
 	KPImage* R = new KPImage();
 	R->getQ() = O->getQ().convertToFormat(QImage::Format::Format_Grayscale8);

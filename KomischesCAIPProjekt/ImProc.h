@@ -26,6 +26,7 @@ public:
 	static KPImage* adaptthresh(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* filter(KPImage* O, Mat mask, int maskcenterx, int maskcentery, int outofbounds = replicate);
 	static vector<int>* grayhisto(KPImage* O);
+	static vector<vector<int>>* colorhisto(KPImage* O);
 
 	//Image Processing via lib
 	static KPImage* convert2Gray(KPImage* O, KPProcessingWindow* kpp);
