@@ -1,13 +1,19 @@
-#include "KomischesCAIPProjekt.h"
+﻿#include "KomischesCAIPProjekt.h"
 
 KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
-	: QMainWindow(parent), activeM(-1), M(), V(), B(), viewmapper(this), buttonmapper(this), doBenchmark(true) {
+	: QMainWindow(parent), activeM(-1), M(), V(), B(), viewmapper(this), buttonmapper(this), doBenchmark(true),
+	  links(""), rechts("\u23f1\ufe0f") {
 	ui.setupUi(this);
 	connect(&viewmapper, SIGNAL(mapped(int)), this, SLOT(windowactivated(int)));
 	cout << "viewmapper setup" << endl;
 	connect(&buttonmapper, SIGNAL(mapped(int)), this, SLOT(selectorclicked(int)));
 	cout << "buttonmapper setup" << endl;
 	Tools::magnifiq = new KPMagnifier();
+	ui.statusBar->addPermanentWidget(&links, 1);
+	ui.statusBar->addPermanentWidget(ui.tempLabel, 0);
+	ui.statusBar->addPermanentWidget(&rechts, 0);
+	connect(ui.statusBar, SIGNAL(messageChanged(QString)), this, SLOT(showTimerTip(QString)));
+
 }
 
 void KomischesCAIPProjekt::changeImage(int ID, KPImage* im) {
@@ -32,27 +38,42 @@ void KomischesCAIPProjekt::addImage(int ID, KPImage* im) {
 	//connect(kpv, SIGNAL(windowactivated(int)), this, SLOT(windowactivated(kpv)));
 
 	viewmapper.setMapping(kpv, kpv->getID());
-	connect(kpv, SIGNAL(windowactivated(int)), &viewmapper, SLOT(map()));
+	connect(kpv, SIGNAL(windowactivated(int)), this, SLOT(windowactivated(int)));
 
 	buttonmapper.setMapping(kps, kps->getID());
-	connect(kps, SIGNAL(clicked()), &buttonmapper, SLOT(map()));
+	connect(kps, SIGNAL(leftclick(int)), this, SLOT(selectorclicked(int)));
+	connect(kps, SIGNAL(rightclick(int)), this, SLOT(selectorRclicked(int)));
+	//connect(kps, SIGNAL(middleclick(int)), this, SLOT(selectorMclicked(int)));
+	connect(kps, SIGNAL(mouseHovering()), this, SLOT(selectorHovered()));
+
 
 	connect(kpv, SIGNAL(closethis(int)), this, SLOT(inviewerclose(int)));
 
 	V[ID] = kpv;
 	B[ID] = kps;
 	disenableItems();
+	this->activeM = ID;
+	changeActiveButton(ID);
 }
 
 void KomischesCAIPProjekt::removeImage(int ID) {
+	cout << 1;
 	V[ID]->close();
+	cout << 2;
 	delete V[ID];
+	cout << 3;
 	delete B[ID];
+	cout << 4;
 	V.erase(ID);
+	cout << 5;
 	B.erase(ID);
+	cout << 6;
 	M.deleteImage(ID);
+	cout << 7;
 	if(V.size() > 0) windowactivated(begin(V)->first);
+	cout << 8;
 	disenableItems();
+	cout << 9;
 }
 
 void KomischesCAIPProjekt::disenableItems() {
@@ -64,6 +85,17 @@ void KomischesCAIPProjekt::disenableItems() {
 	//ui.actionMagnifier->setEnabled(t);
 }
 
+void KomischesCAIPProjekt::changeActiveButton(int n) {
+	vector<int> temp;
+	temp.reserve(V.size());
+	for (auto i = begin(V); i != end(V); ++i) {
+		temp.push_back(i->first);
+	}
+	for (auto i = 0; i < temp.size(); i++) {
+		B[temp[i]]->setActive(temp[i] == this->activeM);
+	}
+}
+
 bool KomischesCAIPProjekt::notgray() {
 	QMessageBox::StandardButton qb = QMessageBox::question(this, QString("Only grayscale supported!"), QString("Only grayscale images are supported for this operation. Do you want to convert the current image to grayscale and continue?"));
 	if (qb == QMessageBox::StandardButton::Yes) {
@@ -71,6 +103,7 @@ bool KomischesCAIPProjekt::notgray() {
 		int nid = M.addImage(r, r->getName());
 		this->activeM = nid;
 		this->addImage(nid, r);
+		changeActiveButton(this->activeM);
 		return true;
 	} else {
 		return false;
@@ -80,14 +113,33 @@ bool KomischesCAIPProjekt::notgray() {
 void KomischesCAIPProjekt::selectorclicked(int n) {
 	cout << "Selector " << n << " clicked" << endl;
 	this->activeM = n;
+	changeActiveButton(n);
+}
+
+void KomischesCAIPProjekt::selectorMclicked(int n) {
+	removeImage(n);
+}
+
+void KomischesCAIPProjekt::selectorRclicked(int n) {
+	selectorclicked(n);
 	if (!V[n]->isVisible()) V[n]->show();
 	V[n]->activateWindow();
 	V[n]->fitToCurrent();
 }
 
+void KomischesCAIPProjekt::selectorHovered() {
+	links.setText("LClick: Activate, RClick: View");
+}
+
+void KomischesCAIPProjekt::showTimerTip(QString t) {
+	QString a = QString(": ") + t;
+	rechts.setText(a);
+}
+
 void KomischesCAIPProjekt::windowactivated(int view) {
 	cout << "Window " << view << " activated" << endl;
 	this->activeM = view;
+	changeActiveButton(view);
 }
 
 void KomischesCAIPProjekt::on_actionOpen_triggered() {

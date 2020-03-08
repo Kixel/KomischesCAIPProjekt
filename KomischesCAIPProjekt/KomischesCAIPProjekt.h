@@ -33,7 +33,7 @@ private:
 	map<int, KPImageView*> V;
 	map<int, KPImageSelector*> B;
 
-	//KPMagnifier mag;
+	QLabel links, rechts;
 
 	QSignalMapper viewmapper, buttonmapper;
 
@@ -42,12 +42,13 @@ private:
 	void addImage(int ID, KPImage* im);
 	void removeImage(int ID);
 	void disenableItems();
+	void changeActiveButton(int n);
 
 	bool notgray();
 
+
 public slots:
-	void windowactivated(int view);
-	void selectorclicked(int n);
+	
 
 private slots:
 	//Menu Bar
@@ -102,4 +103,12 @@ private slots:
 	//Proxy
 	void inviewerclose(int id);
 	void improcesserclose(KPProcessingWindow* k);
+
+	void windowactivated(int view);
+	void selectorclicked(int n);
+	void selectorMclicked(int n);
+	void selectorRclicked(int n);
+
+	void selectorHovered();
+	void showTimerTip(QString t);
 };
