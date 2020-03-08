@@ -20,4 +20,4 @@ CAIP 3 Benotetes Projekt
 - Magnifier window with multiple "zoom" levels
 - Option to measure elapsed time for all operations
 
-_Please note that the custom filter mask option - while already implemented - does not work and still needs some love._
+_Please note that the custom filter mask option - while already implemented - does not work (and thus is disabled) and still needs some love._
