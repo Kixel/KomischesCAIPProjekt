@@ -36,7 +36,8 @@ KPImage::KPImage(int w, int h) : q(w, h, QImage::Format_RGB888), internalname(""
 
 }
 
-KPImage::KPImage(int w, int h, int format) : q(w, h, QImage::Format(format)), internalname("") {
+KPImage::KPImage(int w, int h, int format) : internalname("") {
+	q = QImage(w, h, QImage::Format(format));
 }
 
 QImage& KPImage::getQ() {

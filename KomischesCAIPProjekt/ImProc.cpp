@@ -62,6 +62,199 @@ vector<vector<int>>* ImProc::colorhisto(KPImage* O) {
 	return out;
 }
 
+KPImage* ImProc::filter_mean(KPImage* O, KPProcessingWindow* kpp) {
+	cout << "startng manual filter" << endl;
+	QImage& source = O->getQ();
+	
+	QImage* newImage = new QImage(source.width(), source.height(), QImage::Format_Grayscale8);
+	int kernelSize = kpp->getInt5();
+
+	// Nur 8-Bit Bilder
+	if (O->getQ().format() != QImage::Format_Grayscale8) {
+		cout << "Not 8 bit gray!" << endl;
+		return 0;
+	}
+	// Nur ungerade Kernelgröße
+	if (kernelSize % 2 == 0) {
+		kernelSize++;
+	}
+
+
+	// Zeiger auf eine Bildzeile
+	unsigned char* lineSource;
+	unsigned char* lineNew;
+
+	int kernelSizeQuadrat = kernelSize * kernelSize;
+	int radius = kernelSize / 2;
+	int pixel;
+
+	int height = newImage->height();
+	int width = newImage->width();
+
+	// Mittelwertfilter
+	// alle Zeilen
+	for (int y = 0; y < height; y++) {
+		lineSource = source.scanLine(y);
+		lineNew = newImage->scanLine(y);
+
+		// alle Spalten
+		for (int x = 0; x < width; x++) {
+			// Randbehandlung: Rand entsprechend der Filtergröße aus Quelle kopieren
+			if (y < radius || y >= height - radius || x < radius || x >= width - radius) {
+				lineNew[x] = lineSource[x];
+				continue;
+			}
+
+			pixel = 0;
+			// Zeilen des Filters
+			for (int l = y - radius; l <= y + radius; l++) {
+				lineSource = source.scanLine(l);
+
+				// Spalten des Filters
+				for (int m = x - radius; m <= x + radius; m++) {
+					pixel += lineSource[m];
+				}
+			}
+			lineNew[x] =
+				(double)pixel / kernelSizeQuadrat + 0.5;
+
+		}
+	}
+
+	KPImage* R = new KPImage();
+	R->getQ() = *newImage;
+
+
+	return R;
+}
+
+KPImage* ImProc::filter_meanS(KPImage* O, KPProcessingWindow* kpp) {
+	QImage* source = &O->getQ();
+	int kernelSize = kpp->getInt5();
+
+	// Nur gerare Kernelgröße
+	if (kernelSize % 2 == 0) {
+		kernelSize++;
+	}
+
+	QImage* newImage = new QImage(source->width(), source->height(), QImage::Format_Grayscale8);
+
+	// Zeiger auf eine Bildzeile
+	unsigned char* lineSource;
+	unsigned char* lineNew;
+
+	int radius = kernelSize / 2;
+	int pixel;
+
+	int height = newImage->height();
+	int width = newImage->width();
+
+	// Zwischenspeicher
+	unsigned char* buffer = new unsigned char[width * height];
+
+	// Mittelwertfilter separiert
+	// alle Zeilen
+	for (int y = 0; y < height; y++) {
+		lineSource = source->scanLine(y);
+		lineNew = newImage->scanLine(y);
+
+		// alle Spalten
+		for (int x = 0; x < width; x++) {
+			// Randbehandlung: Rand entsprechend der Filtergröße aus Quelle kopieren
+			if (y < radius || y >= height - radius || x < radius || x >= width - radius) {
+				lineNew[x] = lineSource[x];
+				buffer[y * width + x] = lineSource[x];
+				continue;
+			}
+
+			pixel = 0;
+			// Spalten des Filters
+			for (int m = x - radius; m <= x + radius; m++) {
+				pixel += lineSource[m];
+			}
+			buffer[y * width + x] = (double)pixel / kernelSize + 0.5;
+		}
+	}
+
+	// alle Zeilen ohne Rand
+	for (int y = radius; y < height - radius; y++) {
+		lineNew = newImage->scanLine(y);
+
+		// alle Spalten ohne Rand
+		for (int x = radius; x < width - radius; x++) {
+			pixel = 0;
+			// Zeilen des Filters
+			for (int m = y - radius; m <= y + radius; m++) {
+				pixel += buffer[m * width + x];
+			}
+			lineNew[x] = (double)pixel / kernelSize + 0.5;
+		}
+	}
+
+	KPImage* R = new KPImage();
+	R->getQ() = *newImage;
+	return R;
+}
+
+KPImage* ImProc::filter_meanCV(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	int size1 = kpp->getInt1();
+	int size2 = kpp->getInt2();
+	int bordert = kpp->getBordertype();
+	boxFilter(in, *out, -1, Size(size1, size2), Point(-1, -1), true, bordert);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" mean filtered"));
+	return R;
+}
+
+KPImage* ImProc::filter_median(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	int size1 = kpp->getInt5();
+	if (size1 < 3) size1 = 3;
+	if (size1 % 2 == 0) size1++;
+	//int bordert = kpp->getBordertype();
+	//boxFilter(in, *out, -1, Size(size1, size2), Point(-1, -1), true, bordert);
+	medianBlur(in, *out, size1);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" median filtered"));
+	return R;
+}
+
+KPImage* ImProc::filter_gauss(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	int size1 = kpp->getInt1();
+	if (size1 % 2 == 0) size1++;
+	int size2 = kpp->getInt2();
+	if (size2 % 2 == 0) size2++;
+	double sigma = kpp->getDouble1();
+	int bordert = kpp->getBordertype();
+	//boxFilter(in, *out, -1, Size(size1, size2), Point(-1, -1), true, bordert);
+	GaussianBlur(in, *out, Size(size1, size2), sigma, sigma, bordert);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" gauss filtered"));
+	return R;
+}
+
+KPImage* ImProc::filter_edge(KPImage* O, KPProcessingWindow* kpp) {
+	Mat* out = new Mat();
+	Mat in = O->getM();
+	int size1 = kpp->getInt5();
+	if (size1 < 1) size1 = 1;
+	if (size1 % 2 == 0) size1++;
+	if (size1 > 7) size1 = 7;
+	//cout << size1 << endl;
+	int bordert = kpp->getBordertype();
+	//boxFilter(in, *out, -1, Size(size1, size2), Point(-1, -1), true, bordert);
+	//GaussianBlur(in, *out, Size(size1, size2), sigma, sigma, bordert);
+	Sobel(in, *out, -1, 1, 1, size1, 1, 0, bordert);
+	KPImage* R = new KPImage(out);
+	R->setName(O->getName() + string(" sobel filtered"));
+	return R;
+}
+
 KPImage* ImProc::convert2Gray(KPImage* O, KPProcessingWindow* kpp) {
 	KPImage* R = new KPImage();
 	R->getQ() = O->getQ().convertToFormat(QImage::Format::Format_Grayscale8);
@@ -104,15 +297,6 @@ KPImage* ImProc::resize(KPImage* O, KPProcessingWindow* kpp) {
 KPImage* ImProc::erode(KPImage* O, KPProcessingWindow* kpp) {
 	Mat* out = new Mat();
 	Mat in = O->getM();
-	
-	//needed elements:
-	/*
-	kernel:
-		shape (int->combobox)
-		Size (int/int->2spinner) exists
-	iterations (int->spinner) exists
-	bordertype (int->combobox)
-	*/
 	int shape = kpp->getShape();
 	int size1 = kpp->getInt1();
 	int size2 = kpp->getInt2();

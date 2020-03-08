@@ -28,6 +28,14 @@ public:
 	static vector<int>* grayhisto(KPImage* O);
 	static vector<vector<int>>* colorhisto(KPImage* O);
 
+	//Filtering
+	static KPImage* filter_mean(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* filter_meanS(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* filter_meanCV(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* filter_median(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* filter_gauss(KPImage* O, KPProcessingWindow* kpp);
+	static KPImage* filter_edge(KPImage* O, KPProcessingWindow* kpp);
+
 	//Image Processing via lib
 	static KPImage* convert2Gray(KPImage* O, KPProcessingWindow* kpp);
 	static KPImage* rotate  (KPImage* O, KPProcessingWindow* kpp);

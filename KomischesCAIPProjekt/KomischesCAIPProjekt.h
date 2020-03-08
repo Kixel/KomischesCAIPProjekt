@@ -83,6 +83,8 @@ private slots:
 	void on_actionAdaptive_Binarise_triggered();
 		//Filter Submmenu
 		void on_actionMean_triggered();
+		void on_actionMean_Separated_triggered();
+		void on_actionMean_CV_triggered();
 		void on_actionMedian_triggered();
 		void on_actionGauss_triggered();
 		void on_actionEdge_triggered();

@@ -135,7 +135,7 @@
    </widget>
    <widget class="QMenu" name="menuOperations">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>Operations</string>
@@ -146,9 +146,11 @@
      </property>
      <addaction name="actionMean"/>
      <addaction name="actionMean_Separated"/>
+     <addaction name="actionMean_CV"/>
      <addaction name="actionMedian"/>
      <addaction name="actionGauss"/>
      <addaction name="actionEdge"/>
+     <addaction name="separator"/>
      <addaction name="actionRandom"/>
      <addaction name="actionCustom"/>
     </widget>
@@ -476,6 +478,11 @@
   <action name="actionMean_Separated">
    <property name="text">
     <string>Mean Separated</string>
+   </property>
+  </action>
+  <action name="actionMean_CV">
+   <property name="text">
+    <string>Mean (CV)</string>
    </property>
   </action>
  </widget>

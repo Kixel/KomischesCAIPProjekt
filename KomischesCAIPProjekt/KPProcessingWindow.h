@@ -21,7 +21,7 @@ public:
 
 	void setup(string title, bool needslabels = false, bool needsSpinner12 = false, bool needsSpinner34 = false,
 		bool needsDouble = false, bool needsSpinner5 = false, bool needsSlider1 = false,
-		bool needsSlider2 = false, bool needscombo = false, bool needsmorph = false);
+		bool needsSlider2 = false, bool needscombo = false, bool needsmorph = false, bool needsborder = false);
 	void setupLabels(string leftW, string rightH);
 	void setupSpinner12(string leftL, int leftV, int leftmin, int leftmax,
 		string rightL, int rightV, int rightmin, int rightmax);
@@ -54,18 +54,13 @@ public:
 	KPImage* getSource();
 
 	bool copyToNew();
+	void show();
 	
 private slots:
 	void updatePreview();
 	void abort();
 	void finish();
 
-	/*void on_spinBox_valueChanged();
-	void on_spinBox_2_valueChanged();
-	void on_spinBox_3_valueChanged();
-	void on_spinBox_4_valueChanged();
-	void on_spinBox_5_valueChanged();
-	void on_doubleSpinBox_valueChanged();*/
 	void on_horizontalSlider_valueChanged();
 	void on_horizontalSlider_2_valueChanged();
 

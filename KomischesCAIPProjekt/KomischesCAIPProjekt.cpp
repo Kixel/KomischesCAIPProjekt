@@ -14,6 +14,7 @@ KomischesCAIPProjekt::KomischesCAIPProjekt(QWidget* parent)
 	ui.statusBar->addPermanentWidget(ui.tempLabel, 0);
 	ui.statusBar->addPermanentWidget(&rechts, 0);
 	connect(ui.statusBar, SIGNAL(messageChanged(QString)), this, SLOT(showTimerTip(QString)));
+	disenableItems();
 
 }
 
@@ -399,18 +400,76 @@ void KomischesCAIPProjekt::on_actionAdaptive_Binarise_triggered() {
 
 void KomischesCAIPProjekt::on_actionMean_triggered() {
 	// TODO mean filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_mean, M.getImage(activeM), this);
+	proc->setup("Filter mean", false, false, false, false, true, false, false, false, false, false);
+	proc->setupSpinner5("Kernel size", 3, 1, 75);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionMedian_triggered() {
-	// TODO median filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_median, M.getImage(activeM), this);
+	proc->setup("Filter edge median", false, false, false, false, true, false, false, false, false);
+	proc->setupSpinner5("Filter size", 3, 3, 149);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
+}
+
+void KomischesCAIPProjekt::on_actionMean_Separated_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_meanS, M.getImage(activeM), this);
+	proc->setup("Filter mean separated", false, false, false, false, true, false, false, false, false, false);
+	proc->setupSpinner5("Kernel size", 3, 1, 75);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
+}
+
+void KomischesCAIPProjekt::on_actionMean_CV_triggered() {
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_meanCV, M.getImage(activeM), this);
+	proc->setup("Filter mean", false, true, false, false, false, false, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionGauss_triggered() {
-	// TODO gauss filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_gauss, M.getImage(activeM), this);
+	proc->setup("Filter gauss", false, true, false, true, false, false, false, false, false, true);
+	proc->setupSpinner12("Structure element width", 3, 1, 75, "Structure element height", 3, 1, 75);
+	proc->setupDouble("Sigma", 1.0, 0.01, 50.0);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionEdge_triggered() {
-	// TODO edge filter
+	if (!M.getImage(this->activeM)->getQ().isGrayscale()) {
+		if (!notgray()) return;
+	}
+	KPProcessingWindow* proc = new KPProcessingWindow(ImProc::filter_edge, M.getImage(activeM), this);
+	proc->setup("Filter edge sobel", false, false, false, false, true, false, false, false, false, true);
+	proc->setupSpinner5("Kernel size", 1, 1, 7);
+	proc->show();
+	proc->fitToCurrent();
+	connect(proc, SIGNAL(finished(KPProcessingWindow*)), this, SLOT(improcesserclose(KPProcessingWindow*)));
 }
 
 void KomischesCAIPProjekt::on_actionRandom_triggered() {

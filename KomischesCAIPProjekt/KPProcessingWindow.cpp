@@ -6,6 +6,7 @@ KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWi
 {
 	this->orig = original;
 	this->preview = new KPImage(*this->orig);
+	cout << preview->getWidth() << endl;
 	this->left = new QGraphicsScene();
 	this->right = new QGraphicsScene();
 	ui.setupUi(this); 
@@ -14,7 +15,7 @@ KPProcessingWindow::KPProcessingWindow(KPImage* (*Func)(KPImage*, KPProcessingWi
 	left->clear();
 	left->setSceneRect(orig->getQ().rect());
 	left->addPixmap(QPixmap::fromImage(orig->getQ()));
-	this->updatePreview();
+	updatePreview();
 	if (slowoperation) {
 		connect(ui.buttonRefresh, SIGNAL(clicked()), this, SLOT(updatePreview()));
 	} else {
@@ -54,16 +55,19 @@ void KPProcessingWindow::fitToCurrent() {
 
 
 void KPProcessingWindow::updatePreview() {
-	delete preview;
+	//if (!this->isVisible()) return;
+	if (preview) delete preview;
 	preview = Worker(this->orig, this);
-
+	cout << preview->getWidth();
 	right->clear();
 	right->setSceneRect(preview->getQ().rect());
 	right->addPixmap(QPixmap::fromImage(preview->getQ()));
 	this->fitToCurrent();
 }
 
-void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner12, bool needsSpinner34, bool needsDouble, bool needsSpinner5, bool needsSlider1, bool needsSlider2, bool needscombo, bool needsmorph) {
+void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner12, bool needsSpinner34, 
+	bool needsDouble, bool needsSpinner5, bool needsSlider1, bool needsSlider2, bool needscombo, 
+	bool needsmorph, bool needsborder) {
 	ui.labelTitle->setText(QString(title.c_str()));
 	if (!needslabels) {
 		ui.w_info12->hide();
@@ -94,10 +98,14 @@ void KPProcessingWindow::setup(string title, bool needslabels, bool needsSpinner
 	if (!needscombo) {
 		ui.w_comboBox->hide();
 	}
+	ui.spinnerBorder->hide();
 	if (!needsmorph) {
 		ui.w_morph->hide();
-	} else {
-		ui.spinnerBorder->hide();
+	} 
+	if (needsborder) {
+		ui.w_morph->show();
+		ui.label_12->hide();
+		ui.combo_shape->hide();
 	}
 }
 
@@ -207,6 +215,11 @@ KPImage* KPProcessingWindow::getSource() {
 
 bool KPProcessingWindow::copyToNew() {
 	return ui.copyToNew->isChecked();
+}
+
+void KPProcessingWindow::show() {
+	QDialog::show();
+	this->updatePreview();
 }
 
 void KPProcessingWindow::abort() {
